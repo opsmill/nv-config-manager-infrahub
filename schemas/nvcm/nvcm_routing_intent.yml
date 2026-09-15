@@ -24,6 +24,12 @@ extensions:
           kind: Number
           optional: true
           order_weight: 2200
+        - name: bgp_router_id_interface
+          label: BGP router-id interface
+          description: Interface whose address is the BGP router ID, normally lo
+          kind: Text
+          optional: true
+          order_weight: 2250
         - name: evpn_esi_base_mac
           label: EVPN ESI base MAC
           kind: MacAddress

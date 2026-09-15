@@ -59,6 +59,20 @@ extensions:
           cardinality: many
           identifier: vlan__dhcp_helper_address
           order_weight: 3000
+    - kind: IpamPrefix
+      attributes:
+        - name: site_aggregate
+          label: Site aggregate
+          description: Advertised as the site aggregate, replaces the role-aggregate tag
+          kind: Boolean
+          default_value: false
+          order_weight: 1400
+        - name: uc_jumphost
+          label: UC jump host
+          description: Jump-host allocation for the site, replaces the uc-jumphost tag
+          kind: Boolean
+          default_value: false
+          order_weight: 1450
     - kind: IpamIPAddress
       relationships:
         - name: dhcp_helper_for_vlans

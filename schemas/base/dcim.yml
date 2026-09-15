@@ -196,46 +196,23 @@ generics:
         description: "The status of the interface"
         order_weight: 1200
       - name: role
-        kind: Dropdown
-        choices:
-          - name: uplink
-            label: Uplink
-            description: Towards the spine or core layer.
-            color: '#A9CCE3'
-          - name: downlink
-            label: Downlink
-            description: Towards hosts or the leaf layer.
-            color: '#B4E0DC'
-          - name: management
-            label: Management
-            description: In-band device management.
-            color: '#E3DAC9'
-          - name: oob
-            label: Out-of-band
-            description: Dedicated out-of-band management port.
-            color: '#D2B4DE'
-          - name: loopback
-            label: Loopback
-            description: Loopback interface.
-            color: '#B0A8B9'
-          - name: peering
-            label: Peering
-            description: Peering with another network.
-            color: '#C4B7E6'
-          - name: unknown
-            label: Unknown
-            description: Role not yet assigned.
-            color: '#DDDDDD'
+        kind: Text
         optional: true
-        description: "The role of the interface in the network"
+        description: "Template-facing interface role as NVCM names it, for example Uplink, Downlink, Management or VLAN-101"
         order_weight: 1300
       - name: mtu
         kind: Number
         label: MTU
-        default_value: 1500
         optional: true
         description: "Maximum transmission unit, in bytes (IP payload, not frame size)."
         order_weight: 1350
+      - name: interface_type
+        kind: Text
+        label: Interface type
+        optional: true
+        description: Physical or virtual interface type as the platform reports it, for example 1000base-t, 
+          400gbase-x-osfp, lag or virtual
+        order_weight: 1250
     relationships:
       - name: device
         peer: DcimGenericDevice
@@ -245,6 +222,12 @@ generics:
         identifier: device__interface
         order_weight: 900
 
+      - name: tags
+        peer: BuiltinTag
+        kind: Attribute
+        cardinality: many
+        optional: true
+        order_weight: 2000
   - name: Layer2
     namespace: Interface
     description: "Layer 2 specific attributes for network interfaces"
@@ -289,6 +272,14 @@ generics:
         description: "List of IP addresses associated with the interface"
         order_weight: 1150
 
+      - name: vrf
+        peer: IpamVRF
+        label: VRF
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: interface__vrf
+        order_weight: 1160
   - name: HasSubInterface
     namespace: Interface
     description: A generic interface that can have sub-interfaces
