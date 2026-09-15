@@ -22,7 +22,8 @@ spec:
         name: Ethernet49
         description: WAN edge peer for a09-u28-p01-bleaf-01
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.76.245.68/31
@@ -43,7 +44,8 @@ spec:
         name: Ethernet49
         description: WAN edge peer for a08-u28-p01-oobspine-01
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.76.245.72/31
@@ -65,6 +67,7 @@ spec:
     intended_firmware_version: 5.13.1
     evpn_esi_base_mac: 44:38:39:ff:69:00
     evpn_fabric_mac: 00:00:5E:00:01:69
+    bgp_router_id_interface: lo
     vrfs:
     - OOB
     interfaces:
@@ -72,8 +75,10 @@ spec:
       data:
         name: eth0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mac_address: '44:38:39:20:00:01'
+        vrf: OOB
         ip_addresses:
         - - default
           - 192.0.2.20/23
@@ -81,295 +86,344 @@ spec:
       data:
         name: swp1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp5
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp6
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp7
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp8
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp9
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp10
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp11
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp12
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp13
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp14
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp15
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp16
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp17
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp18
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp19
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp20
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp21
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp22
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp23
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp24
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp25
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp26
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp27
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp28
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp29
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp30
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp31
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp32
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp33
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp34
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp35
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp36
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp37
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp38
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp39
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp40
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp41
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp42
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp43
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp44
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp45
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp46
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp47
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp48
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan202
     - kind: InterfacePhysical
       data:
         name: swp49
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 10gbase-t
         ip_addresses:
         - - default
           - 10.254.32.1/31
@@ -377,7 +431,8 @@ spec:
       data:
         name: swp51
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 10gbase-t
         ip_addresses:
         - - default
           - 10.254.34.1/31
@@ -385,6 +440,8 @@ spec:
       data:
         name: lo-oob
         status: active
+        interface_type: virtual
+        vrf: OOB
         ip_addresses:
         - - default
           - 10.78.154.0/32
@@ -392,7 +449,8 @@ spec:
       data:
         name: lo
         status: active
-        role: loopback
+        role: Switch-Loopback
+        interface_type: virtual
         ip_addresses:
         - - default
           - 10.254.254.2/32
@@ -400,6 +458,9 @@ spec:
       data:
         name: vlan202
         status: active
+        role: VLAN-202
+        interface_type: virtual
+        vrf: OOB
         untagged_vlan: Vlan202
         ip_addresses:
         - - default
@@ -423,6 +484,7 @@ spec:
     evpn_esi_base_mac: 44:38:39:ff:69:00
     evpn_fabric_mac: 00:00:5E:00:01:69
     evpn_df_preference: 50000
+    bgp_router_id_interface: lo
     vrfs:
     - EXIT
     - OOB
@@ -431,8 +493,10 @@ spec:
       data:
         name: eth0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mac_address: 54:9B:24:41:33:12
+        vrf: OOB
         ip_addresses:
         - - default
           - 192.0.2.37/23
@@ -440,65 +504,78 @@ spec:
       data:
         name: swp1s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp1s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp1s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp1s3
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp2s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp2s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp2s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp2s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp3s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp3s1
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp3s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp3s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp9s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.0/31
@@ -506,7 +583,8 @@ spec:
       data:
         name: swp9s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.2/31
@@ -514,15 +592,18 @@ spec:
       data:
         name: swp9s2
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp9s3
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp9s4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.4/31
@@ -530,7 +611,8 @@ spec:
       data:
         name: swp9s5
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.6/31
@@ -538,19 +620,25 @@ spec:
       data:
         name: swp9s6
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp9s7
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp10
         status: disabled
+        interface_type: other
+        tags:
+        - breakout-disable
     - kind: InterfacePhysical
       data:
         name: swp11s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.8/31
@@ -558,7 +646,8 @@ spec:
       data:
         name: swp11s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.10/31
@@ -566,15 +655,18 @@ spec:
       data:
         name: swp11s2
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp11s3
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp11s4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.12/31
@@ -582,7 +674,8 @@ spec:
       data:
         name: swp11s5
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.14/31
@@ -590,19 +683,25 @@ spec:
       data:
         name: swp11s6
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp11s7
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp12
         status: disabled
+        interface_type: other
+        tags:
+        - breakout-disable
     - kind: InterfacePhysical
       data:
         name: swp13s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.16/31
@@ -610,7 +709,8 @@ spec:
       data:
         name: swp13s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.18/31
@@ -618,15 +718,18 @@ spec:
       data:
         name: swp13s2
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp13s3
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp13s4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.20/31
@@ -634,7 +737,8 @@ spec:
       data:
         name: swp13s5
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.22/31
@@ -642,19 +746,25 @@ spec:
       data:
         name: swp13s6
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp13s7
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp14
         status: disabled
+        interface_type: other
+        tags:
+        - breakout-disable
     - kind: InterfacePhysical
       data:
         name: swp15s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.24/31
@@ -662,7 +772,8 @@ spec:
       data:
         name: swp15s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.26/31
@@ -670,15 +781,18 @@ spec:
       data:
         name: swp15s2
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp15s3
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp15s4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.28/31
@@ -686,7 +800,8 @@ spec:
       data:
         name: swp15s5
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.30/31
@@ -694,19 +809,25 @@ spec:
       data:
         name: swp15s6
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp15s7
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp16
         status: disabled
+        interface_type: other
+        tags:
+        - breakout-disable
     - kind: InterfacePhysical
       data:
         name: swp17s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.32/31
@@ -714,19 +835,23 @@ spec:
       data:
         name: swp17s1
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp17s2
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp17s3
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp17s4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.34/31
@@ -734,23 +859,30 @@ spec:
       data:
         name: swp17s5
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp17s6
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp17s7
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp18
         status: disabled
+        interface_type: other
+        tags:
+        - breakout-disable
     - kind: InterfacePhysical
       data:
         name: swp19s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.36/31
@@ -758,19 +890,23 @@ spec:
       data:
         name: swp19s1
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp19s2
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp19s3
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp19s4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
         ip_addresses:
         - - default
           - 10.254.32.38/31
@@ -778,23 +914,31 @@ spec:
       data:
         name: swp19s5
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp19s6
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp19s7
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp20
         status: disabled
+        interface_type: other
+        tags:
+        - breakout-disable
     - kind: InterfacePhysical
       data:
         name: swp21s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 100gbase-x-qsfp28
+        vrf: EXIT
         ip_addresses:
         - - default
           - 10.76.245.73/31
@@ -802,38 +946,49 @@ spec:
       data:
         name: swp21s1
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s2
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s3
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s4
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s5
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s6
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s7
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp22
         status: disabled
+        interface_type: other
+        tags:
+        - breakout-disable
     - kind: InterfaceLag
       data:
         name: bond2
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan201
         bundle_number: 2
@@ -844,6 +999,7 @@ spec:
       data:
         name: bond4
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan201
         bundle_number: 4
@@ -854,6 +1010,7 @@ spec:
       data:
         name: bond8
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan203
         bundle_number: 8
@@ -864,6 +1021,7 @@ spec:
       data:
         name: bond10
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan203
         bundle_number: 10
@@ -874,6 +1032,7 @@ spec:
       data:
         name: bond14
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan201
         bundle_number: 14
@@ -884,6 +1043,7 @@ spec:
       data:
         name: bond19
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan203
         bundle_number: 19
@@ -894,6 +1054,7 @@ spec:
       data:
         name: bond27
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan201
         bundle_number: 27
@@ -904,6 +1065,7 @@ spec:
       data:
         name: bond29
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan201
         bundle_number: 29
@@ -914,6 +1076,7 @@ spec:
       data:
         name: bond33
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan203
         bundle_number: 33
@@ -924,6 +1087,7 @@ spec:
       data:
         name: bond35
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan203
         bundle_number: 35
@@ -934,6 +1098,8 @@ spec:
       data:
         name: lo-exit
         status: active
+        interface_type: virtual
+        vrf: EXIT
         ip_addresses:
         - - default
           - 10.78.151.224/32
@@ -941,6 +1107,8 @@ spec:
       data:
         name: lo-oob
         status: active
+        interface_type: virtual
+        vrf: OOB
         ip_addresses:
         - - default
           - 10.78.154.8/32
@@ -948,7 +1116,8 @@ spec:
       data:
         name: lo
         status: active
-        role: loopback
+        role: Switch-Loopback
+        interface_type: virtual
         ip_addresses:
         - - default
           - 10.254.254.10/32
@@ -956,6 +1125,9 @@ spec:
       data:
         name: vlan201
         status: active
+        role: VLAN-201
+        interface_type: virtual
+        vrf: OOB
         untagged_vlan: Vlan201
         ip_addresses:
         - - default
@@ -964,6 +1136,9 @@ spec:
       data:
         name: vlan203
         status: active
+        role: VLAN-203
+        interface_type: virtual
+        vrf: OOB
         untagged_vlan: Vlan203
         ip_addresses:
         - - default
@@ -986,6 +1161,7 @@ spec:
     intended_firmware_version: 5.13.1
     evpn_esi_base_mac: 44:38:39:ff:69:00
     evpn_fabric_mac: 00:00:5E:00:01:69
+    bgp_router_id_interface: lo
     vrfs:
     - INBAND
     interfaces:
@@ -993,7 +1169,8 @@ spec:
       data:
         name: eth0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mac_address: 7C:8C:09:B9:F8:8E
         ip_addresses:
         - - default
@@ -1002,511 +1179,584 @@ spec:
       data:
         name: swp1s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp1s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp2s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp2s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp3s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp3s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp4s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp4s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp5s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp5s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp6s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp6s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp7s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp7s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp8s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp8s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp9s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp9s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp10s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp10s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp11s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp11s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp12s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp12s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp13s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp13s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp14s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp14s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp15s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp15s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp16s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp16s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp17s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp17s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp18s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp18s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp19s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp19s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp20s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp20s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp21s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp21s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp22s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp22s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp23s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp23s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp24s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp24s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp25s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp25s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp26s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp26s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp27s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp27s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp28s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp28s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp29s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp29s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp30s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp30s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp31s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp31s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp32s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp32s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp33s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp33s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp34s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp34s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp35s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp35s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp36s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp36s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         mtu: 9000
         untagged_vlan: Vlan102
     - kind: InterfacePhysical
       data:
         name: swp53s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.1/31
@@ -1514,7 +1764,8 @@ spec:
       data:
         name: swp53s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.3/31
@@ -1522,7 +1773,8 @@ spec:
       data:
         name: swp54s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.5/31
@@ -1530,7 +1782,8 @@ spec:
       data:
         name: swp54s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.7/31
@@ -1538,7 +1791,8 @@ spec:
       data:
         name: swp55s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.9/31
@@ -1546,7 +1800,8 @@ spec:
       data:
         name: swp55s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.11/31
@@ -1554,7 +1809,8 @@ spec:
       data:
         name: swp56s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.13/31
@@ -1562,7 +1818,8 @@ spec:
       data:
         name: swp56s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.15/31
@@ -1570,7 +1827,8 @@ spec:
       data:
         name: swp57s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.17/31
@@ -1578,7 +1836,8 @@ spec:
       data:
         name: swp57s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.19/31
@@ -1586,7 +1845,8 @@ spec:
       data:
         name: swp58s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.21/31
@@ -1594,7 +1854,8 @@ spec:
       data:
         name: swp58s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.23/31
@@ -1602,7 +1863,8 @@ spec:
       data:
         name: swp59s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.1/31
@@ -1610,7 +1872,8 @@ spec:
       data:
         name: swp59s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.3/31
@@ -1618,7 +1881,8 @@ spec:
       data:
         name: swp60s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.5/31
@@ -1626,7 +1890,8 @@ spec:
       data:
         name: swp60s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.7/31
@@ -1634,7 +1899,8 @@ spec:
       data:
         name: swp61s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.9/31
@@ -1642,7 +1908,8 @@ spec:
       data:
         name: swp61s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.11/31
@@ -1650,7 +1917,8 @@ spec:
       data:
         name: swp62s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.13/31
@@ -1658,7 +1926,8 @@ spec:
       data:
         name: swp62s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.15/31
@@ -1666,7 +1935,8 @@ spec:
       data:
         name: swp63s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.17/31
@@ -1674,7 +1944,8 @@ spec:
       data:
         name: swp63s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.19/31
@@ -1682,7 +1953,8 @@ spec:
       data:
         name: swp64s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.21/31
@@ -1690,7 +1962,8 @@ spec:
       data:
         name: swp64s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.23/31
@@ -1698,6 +1971,8 @@ spec:
       data:
         name: lo-inband
         status: active
+        interface_type: virtual
+        vrf: INBAND
         ip_addresses:
         - - default
           - 10.78.151.192/32
@@ -1705,7 +1980,8 @@ spec:
       data:
         name: lo
         status: active
-        role: loopback
+        role: Switch-Loopback
+        interface_type: virtual
         ip_addresses:
         - - default
           - 10.254.254.11/32
@@ -1713,6 +1989,9 @@ spec:
       data:
         name: vlan102
         status: active
+        role: VLAN-102
+        interface_type: virtual
+        vrf: INBAND
         untagged_vlan: Vlan102
         ip_addresses:
         - - default
@@ -1735,6 +2014,7 @@ spec:
     intended_firmware_version: 5.13.1
     evpn_esi_base_mac: 44:38:39:ff:69:00
     evpn_fabric_mac: 00:00:5E:00:01:69
+    bgp_router_id_interface: lo
     vrfs:
     - OOB
     interfaces:
@@ -1742,8 +2022,10 @@ spec:
       data:
         name: eth0
         status: active
-        role: management
+        role: Management-Port-Uplink-1
+        interface_type: 1000base-t
         mac_address: 2C:5E:AB:12:5A:38
+        vrf: OOB
         ip_addresses:
         - - default
           - 192.0.2.139/23
@@ -1751,295 +2033,344 @@ spec:
       data:
         name: swp1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp5
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp6
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp7
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp8
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp9
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp10
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp11
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp12
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp13
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp14
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp15
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp16
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp17
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp18
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp19
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp20
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp21
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp22
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp23
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp24
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp25
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp26
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp27
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp28
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp29
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp30
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp31
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp32
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp33
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp34
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp35
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp36
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp37
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp38
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp39
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp40
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp41
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp42
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp43
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp44
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp45
         status: active
-        role: management
+        role: Leaf-Mgmt-1
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp46
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp47
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp48
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp49
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.32.33/31
@@ -2047,7 +2378,8 @@ spec:
       data:
         name: swp51
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.34.33/31
@@ -2055,6 +2387,8 @@ spec:
       data:
         name: lo-oob
         status: active
+        interface_type: virtual
+        vrf: OOB
         ip_addresses:
         - - default
           - 10.78.154.9/32
@@ -2062,7 +2396,8 @@ spec:
       data:
         name: lo
         status: active
-        role: loopback
+        role: Switch-Loopback
+        interface_type: virtual
         ip_addresses:
         - - default
           - 10.254.254.13/32
@@ -2070,6 +2405,9 @@ spec:
       data:
         name: vlan201
         status: active
+        role: VLAN-201
+        interface_type: virtual
+        vrf: OOB
         untagged_vlan: Vlan201
         ip_addresses:
         - - default
@@ -2078,6 +2416,9 @@ spec:
       data:
         name: vlan203
         status: active
+        role: VLAN-203
+        interface_type: virtual
+        vrf: OOB
         untagged_vlan: Vlan203
         ip_addresses:
         - - default
@@ -2099,7 +2440,7 @@ spec:
         name: eth0
         description: BMC / mgmt
         status: active
-        role: oob
+        interface_type: 1000base-t
         mtu: 1500
         ip_addresses:
         - - default
@@ -2109,6 +2450,7 @@ spec:
         name: mlx5_0
         description: IB HCA port 0 to sleaf-01 swp9s0
         status: active
+        interface_type: infiniband-ndr
         mtu: 4092
         ib_guid: 002c903002112201
     - kind: InterfacePhysical
@@ -2116,6 +2458,7 @@ spec:
         name: mlx5_1
         description: IB HCA port 1 to sleaf-01 swp10s0
         status: active
+        interface_type: infiniband-ndr
         mtu: 4092
         ib_guid: 002c903002112202
   - name: a09-u02-p01-gpu-02
@@ -2135,7 +2478,7 @@ spec:
         name: eth0
         description: BMC / mgmt
         status: active
-        role: oob
+        interface_type: 1000base-t
         mtu: 1500
         ip_addresses:
         - - default
@@ -2145,6 +2488,7 @@ spec:
         name: mlx5_0
         description: IB HCA port 0 to sleaf-01 swp11s0
         status: active
+        interface_type: infiniband-ndr
         mtu: 4092
         ib_guid: 002c903002112211
     - kind: InterfacePhysical
@@ -2152,6 +2496,7 @@ spec:
         name: mlx5_1
         description: IB HCA port 1 to sleaf-01 swp12s0
         status: active
+        interface_type: infiniband-ndr
         mtu: 4092
         ib_guid: 002c903002112212
   - name: a09-u03-p01-gpu-03
@@ -2171,7 +2516,7 @@ spec:
         name: eth0
         description: BMC / mgmt
         status: active
-        role: oob
+        interface_type: 1000base-t
         mtu: 1500
         ip_addresses:
         - - default
@@ -2181,6 +2526,7 @@ spec:
         name: mlx5_0
         description: IB HCA port 0 to sleaf-01 swp13s0
         status: active
+        interface_type: infiniband-ndr
         mtu: 4092
         ib_guid: 002c903002112221
     - kind: InterfacePhysical
@@ -2188,6 +2534,7 @@ spec:
         name: mlx5_1
         description: IB HCA port 1 to sleaf-01 swp14s0
         status: active
+        interface_type: infiniband-ndr
         mtu: 4092
         ib_guid: 002c903002112222
   - name: a09-u04-p01-gpu-04
@@ -2207,7 +2554,7 @@ spec:
         name: eth0
         description: BMC / mgmt
         status: active
-        role: oob
+        interface_type: 1000base-t
         mtu: 1500
         ip_addresses:
         - - default
@@ -2217,6 +2564,7 @@ spec:
         name: mlx5_0
         description: IB HCA port 0 to sleaf-01 swp15s0
         status: active
+        interface_type: infiniband-ndr
         mtu: 4092
         ib_guid: 002c903002112231
     - kind: InterfacePhysical
@@ -2224,6 +2572,7 @@ spec:
         name: mlx5_1
         description: IB HCA port 1 to sleaf-01 swp16s0
         status: active
+        interface_type: infiniband-ndr
         mtu: 4092
         ib_guid: 002c903002112232
   - name: a09-u23-p01-ufm-01
@@ -2244,7 +2593,7 @@ spec:
         name: eth0
         description: UFM management
         status: active
-        role: oob
+        interface_type: 1000base-t
         mtu: 1500
         ip_addresses:
         - - default
@@ -2254,7 +2603,8 @@ spec:
         name: rf0
         description: OOB to mleaf swp37
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mtu: 1500
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
@@ -2262,7 +2612,8 @@ spec:
         name: enp171s0f0np0
         description: IB data uplink to bleaf swp13s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
   - name: a09-u28-p01-bleaf-01
     status: active
     serial_number: E8:9E:49:CF:4E:90
@@ -2282,6 +2633,7 @@ spec:
     evpn_esi_base_mac: 44:38:39:ff:69:00
     evpn_fabric_mac: 00:00:5E:00:01:69
     evpn_df_preference: 50000
+    bgp_router_id_interface: lo
     vrfs:
     - EXIT
     - INBAND
@@ -2291,7 +2643,8 @@ spec:
       data:
         name: eth0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mac_address: E8:9E:49:CF:4E:90
         ip_addresses:
         - - default
@@ -2300,86 +2653,104 @@ spec:
       data:
         name: swp1s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp1s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp1s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp1s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp2s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp2s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp2s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp2s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp3s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp3s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp3s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp3s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp4s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp4s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp4s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp4s3
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp5s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.33/31
@@ -2387,11 +2758,14 @@ spec:
       data:
         name: swp5s1
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp5s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.35/31
@@ -2399,7 +2773,9 @@ spec:
       data:
         name: swp5s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.37/31
@@ -2407,7 +2783,9 @@ spec:
       data:
         name: swp6s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.39/31
@@ -2415,7 +2793,9 @@ spec:
       data:
         name: swp6s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.41/31
@@ -2423,94 +2803,114 @@ spec:
       data:
         name: swp6s2
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp6s3
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp7s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp7s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp7s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp7s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp8s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp8s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp8s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp8s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp9s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp9s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp9s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp9s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp10s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp10s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp10s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp10s3
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp11s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.43/31
@@ -2518,11 +2918,14 @@ spec:
       data:
         name: swp11s1
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp11s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.45/31
@@ -2530,7 +2933,9 @@ spec:
       data:
         name: swp11s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.47/31
@@ -2538,7 +2943,9 @@ spec:
       data:
         name: swp12s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.49/31
@@ -2546,7 +2953,9 @@ spec:
       data:
         name: swp12s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.1.51/31
@@ -2554,51 +2963,63 @@ spec:
       data:
         name: swp12s2
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp12s3
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp13s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
     - kind: InterfacePhysical
       data:
         name: swp13s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
     - kind: InterfacePhysical
       data:
         name: swp13s2
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp13s3
         status: active
+        interface_type: 200gbase-x-qsfp56
     - kind: InterfacePhysical
       data:
         name: swp21s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s2
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s3
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s4
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 100gbase-x-qsfp28
+        vrf: EXIT
         ip_addresses:
         - - default
           - 10.76.245.69/31
@@ -2606,23 +3027,30 @@ spec:
       data:
         name: swp21s5
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s6
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp21s7
         status: active
+        interface_type: 100gbase-x-qsfp28
     - kind: InterfacePhysical
       data:
         name: swp22
         status: disabled
+        interface_type: other
+        tags:
+        - breakout-disable
     - kind: InterfacePhysical
       data:
         name: swp54s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.129/31
@@ -2630,7 +3058,8 @@ spec:
       data:
         name: swp54s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.131/31
@@ -2638,7 +3067,8 @@ spec:
       data:
         name: swp55s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.133/31
@@ -2646,7 +3076,8 @@ spec:
       data:
         name: swp55s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.135/31
@@ -2654,7 +3085,8 @@ spec:
       data:
         name: swp56s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.137/31
@@ -2662,7 +3094,8 @@ spec:
       data:
         name: swp56s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.139/31
@@ -2670,7 +3103,8 @@ spec:
       data:
         name: swp57s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.141/31
@@ -2678,7 +3112,8 @@ spec:
       data:
         name: swp57s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.143/31
@@ -2686,7 +3121,8 @@ spec:
       data:
         name: swp58s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.145/31
@@ -2694,7 +3130,8 @@ spec:
       data:
         name: swp58s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.147/31
@@ -2702,7 +3139,8 @@ spec:
       data:
         name: swp59s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.149/31
@@ -2710,7 +3148,8 @@ spec:
       data:
         name: swp59s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.129/31
@@ -2718,7 +3157,8 @@ spec:
       data:
         name: swp60s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.131/31
@@ -2726,7 +3166,8 @@ spec:
       data:
         name: swp60s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.133/31
@@ -2734,7 +3175,8 @@ spec:
       data:
         name: swp61s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.135/31
@@ -2742,7 +3184,8 @@ spec:
       data:
         name: swp61s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.137/31
@@ -2750,7 +3193,8 @@ spec:
       data:
         name: swp62s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.139/31
@@ -2758,7 +3202,8 @@ spec:
       data:
         name: swp62s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.141/31
@@ -2766,7 +3211,8 @@ spec:
       data:
         name: swp63s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.143/31
@@ -2774,7 +3220,8 @@ spec:
       data:
         name: swp63s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.145/31
@@ -2782,7 +3229,8 @@ spec:
       data:
         name: swp64s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.147/31
@@ -2790,7 +3238,8 @@ spec:
       data:
         name: swp64s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.149/31
@@ -2798,6 +3247,7 @@ spec:
       data:
         name: bond1
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 1
@@ -2808,6 +3258,7 @@ spec:
       data:
         name: bond3
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 3
@@ -2818,6 +3269,7 @@ spec:
       data:
         name: bond5
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 5
@@ -2828,6 +3280,7 @@ spec:
       data:
         name: bond6
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 6
@@ -2838,6 +3291,7 @@ spec:
       data:
         name: bond7
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 7
@@ -2848,6 +3302,7 @@ spec:
       data:
         name: bond9
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 9
@@ -2858,6 +3313,7 @@ spec:
       data:
         name: bond11
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 11
@@ -2868,6 +3324,7 @@ spec:
       data:
         name: bond12
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 12
@@ -2878,6 +3335,7 @@ spec:
       data:
         name: bond13
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 13
@@ -2888,6 +3346,7 @@ spec:
       data:
         name: bond15
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 15
@@ -2898,6 +3357,7 @@ spec:
       data:
         name: bond16
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 16
@@ -2908,6 +3368,7 @@ spec:
       data:
         name: bond17
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 17
@@ -2918,6 +3379,7 @@ spec:
       data:
         name: bond18
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 18
@@ -2928,6 +3390,7 @@ spec:
       data:
         name: bond20
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 20
@@ -2938,6 +3401,7 @@ spec:
       data:
         name: bond21
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 21
@@ -2948,6 +3412,7 @@ spec:
       data:
         name: bond22
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 22
@@ -2958,6 +3423,7 @@ spec:
       data:
         name: bond23
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 23
@@ -2968,6 +3434,7 @@ spec:
       data:
         name: bond24
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 24
@@ -2978,6 +3445,7 @@ spec:
       data:
         name: bond25
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 25
@@ -2988,6 +3456,7 @@ spec:
       data:
         name: bond26
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 26
@@ -2998,6 +3467,7 @@ spec:
       data:
         name: bond28
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 28
@@ -3008,6 +3478,7 @@ spec:
       data:
         name: bond30
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 30
@@ -3018,6 +3489,7 @@ spec:
       data:
         name: bond31
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 31
@@ -3028,6 +3500,7 @@ spec:
       data:
         name: bond32
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 32
@@ -3038,6 +3511,7 @@ spec:
       data:
         name: bond34
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 34
@@ -3048,6 +3522,7 @@ spec:
       data:
         name: bond36
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 36
@@ -3058,6 +3533,7 @@ spec:
       data:
         name: bond37
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 37
@@ -3068,6 +3544,7 @@ spec:
       data:
         name: bond38
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 38
@@ -3078,6 +3555,7 @@ spec:
       data:
         name: bond39
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 39
@@ -3088,6 +3566,7 @@ spec:
       data:
         name: bond40
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 40
@@ -3098,6 +3577,7 @@ spec:
       data:
         name: bond41
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 41
@@ -3108,6 +3588,7 @@ spec:
       data:
         name: bond42
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 42
@@ -3118,6 +3599,7 @@ spec:
       data:
         name: bond43
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan150
         bundle_number: 43
@@ -3128,6 +3610,7 @@ spec:
       data:
         name: bond44
         status: active
+        interface_type: lag
         mtu: 9000
         untagged_vlan: Vlan101
         bundle_number: 44
@@ -3138,6 +3621,8 @@ spec:
       data:
         name: lo-exit
         status: active
+        interface_type: virtual
+        vrf: EXIT
         ip_addresses:
         - - default
           - 10.78.151.225/32
@@ -3145,6 +3630,8 @@ spec:
       data:
         name: lo-inband
         status: active
+        interface_type: virtual
+        vrf: INBAND
         ip_addresses:
         - - default
           - 10.78.151.193/32
@@ -3152,6 +3639,8 @@ spec:
       data:
         name: lo-storage
         status: active
+        interface_type: virtual
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.255.225/32
@@ -3159,7 +3648,8 @@ spec:
       data:
         name: lo
         status: active
-        role: loopback
+        role: Switch-Loopback
+        interface_type: virtual
         ip_addresses:
         - - default
           - 10.254.254.14/32
@@ -3167,6 +3657,9 @@ spec:
       data:
         name: vlan101
         status: active
+        role: VLAN-101
+        interface_type: virtual
+        vrf: INBAND
         untagged_vlan: Vlan101
         ip_addresses:
         - - default
@@ -3175,6 +3668,8 @@ spec:
       data:
         name: vlan150
         status: active
+        interface_type: virtual
+        vrf: INBAND
         untagged_vlan: Vlan150
         ip_addresses:
         - - default
@@ -3197,6 +3692,7 @@ spec:
     intended_firmware_version: 5.13.1
     evpn_esi_base_mac: 44:38:39:ff:69:00
     evpn_fabric_mac: 00:00:5E:00:01:69
+    bgp_router_id_interface: lo
     vrfs:
     - STORAGE
     interfaces:
@@ -3204,7 +3700,8 @@ spec:
       data:
         name: eth0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mac_address: 7C:8C:09:B9:F8:9E
         ip_addresses:
         - - default
@@ -3213,247 +3710,288 @@ spec:
       data:
         name: swp1s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp1s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp1s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp1s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp2s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp2s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp2s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp2s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp3s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp3s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp3s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp3s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp4s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp4s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp4s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp4s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp5s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp5s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp5s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp5s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp6s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp6s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp6s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp6s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp7s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp7s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp7s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp7s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp8s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp8s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp8s2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp8s3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 200gbase-x-qsfp56
         untagged_vlan: Vlan301
     - kind: InterfacePhysical
       data:
         name: swp9s0
         description: IB downlink to gpu-01 mlx5_0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: infiniband-ndr
     - kind: InterfacePhysical
       data:
         name: swp10s0
         description: IB downlink to gpu-01 mlx5_1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: infiniband-ndr
     - kind: InterfacePhysical
       data:
         name: swp11s0
         description: IB downlink to gpu-02 mlx5_0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: infiniband-ndr
     - kind: InterfacePhysical
       data:
         name: swp12s0
         description: IB downlink to gpu-02 mlx5_1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: infiniband-ndr
     - kind: InterfacePhysical
       data:
         name: swp13s0
         description: IB downlink to gpu-03 mlx5_0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: infiniband-ndr
     - kind: InterfacePhysical
       data:
         name: swp14s0
         description: IB downlink to gpu-03 mlx5_1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: infiniband-ndr
     - kind: InterfacePhysical
       data:
         name: swp15s0
         description: IB downlink to gpu-04 mlx5_0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: infiniband-ndr
     - kind: InterfacePhysical
       data:
         name: swp16s0
         description: IB downlink to gpu-04 mlx5_1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: infiniband-ndr
     - kind: InterfacePhysical
       data:
         name: swp57s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.97/31
@@ -3461,7 +3999,8 @@ spec:
       data:
         name: swp57s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.99/31
@@ -3469,7 +4008,8 @@ spec:
       data:
         name: swp58s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.101/31
@@ -3477,7 +4017,8 @@ spec:
       data:
         name: swp58s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.103/31
@@ -3485,7 +4026,8 @@ spec:
       data:
         name: swp59s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.105/31
@@ -3493,7 +4035,8 @@ spec:
       data:
         name: swp59s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.107/31
@@ -3501,7 +4044,8 @@ spec:
       data:
         name: swp60s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.109/31
@@ -3509,7 +4053,8 @@ spec:
       data:
         name: swp60s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.111/31
@@ -3517,7 +4062,8 @@ spec:
       data:
         name: swp61s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.97/31
@@ -3525,7 +4071,8 @@ spec:
       data:
         name: swp61s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.99/31
@@ -3533,7 +4080,8 @@ spec:
       data:
         name: swp62s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.101/31
@@ -3541,7 +4089,8 @@ spec:
       data:
         name: swp62s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.103/31
@@ -3549,7 +4098,8 @@ spec:
       data:
         name: swp63s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.105/31
@@ -3557,7 +4107,8 @@ spec:
       data:
         name: swp63s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.107/31
@@ -3565,7 +4116,8 @@ spec:
       data:
         name: swp64s0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.109/31
@@ -3573,7 +4125,8 @@ spec:
       data:
         name: swp64s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.2.111/31
@@ -3581,6 +4134,8 @@ spec:
       data:
         name: lo-storage
         status: active
+        interface_type: virtual
+        vrf: STORAGE
         ip_addresses:
         - - default
           - 100.127.255.226/32
@@ -3588,7 +4143,8 @@ spec:
       data:
         name: lo
         status: active
-        role: loopback
+        role: Switch-Loopback
+        interface_type: virtual
         ip_addresses:
         - - default
           - 10.254.254.15/32
@@ -3596,6 +4152,9 @@ spec:
       data:
         name: vlan301
         status: active
+        role: VLAN-301
+        interface_type: virtual
+        vrf: STORAGE
         untagged_vlan: Vlan301
         ip_addresses:
         - - default
@@ -3618,12 +4177,14 @@ spec:
     intended_firmware_version: 5.13.1
     evpn_esi_base_mac: 44:38:39:ff:69:00
     evpn_fabric_mac: 00:00:5E:00:01:69
+    bgp_router_id_interface: lo
     interfaces:
     - kind: InterfacePhysical
       data:
         name: eth0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mac_address: 7C:8C:09:B9:F8:A6
         ip_addresses:
         - - default
@@ -3632,7 +4193,8 @@ spec:
       data:
         name: swp1s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.0/31
@@ -3640,7 +4202,8 @@ spec:
       data:
         name: swp1s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.2/31
@@ -3648,7 +4211,8 @@ spec:
       data:
         name: swp2s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.4/31
@@ -3656,7 +4220,8 @@ spec:
       data:
         name: swp2s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.6/31
@@ -3664,7 +4229,8 @@ spec:
       data:
         name: swp3s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.8/31
@@ -3672,7 +4238,8 @@ spec:
       data:
         name: swp3s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.10/31
@@ -3680,7 +4247,8 @@ spec:
       data:
         name: swp4s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.12/31
@@ -3688,7 +4256,8 @@ spec:
       data:
         name: swp4s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.14/31
@@ -3696,7 +4265,8 @@ spec:
       data:
         name: swp5s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.16/31
@@ -3704,7 +4274,8 @@ spec:
       data:
         name: swp5s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.18/31
@@ -3712,7 +4283,8 @@ spec:
       data:
         name: swp6s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.20/31
@@ -3720,7 +4292,8 @@ spec:
       data:
         name: swp6s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.22/31
@@ -3728,7 +4301,8 @@ spec:
       data:
         name: swp7s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.24/31
@@ -3736,7 +4310,8 @@ spec:
       data:
         name: swp7s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.26/31
@@ -3744,7 +4319,8 @@ spec:
       data:
         name: swp8s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.28/31
@@ -3752,7 +4328,8 @@ spec:
       data:
         name: swp8s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.30/31
@@ -3760,7 +4337,8 @@ spec:
       data:
         name: swp9s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.32/31
@@ -3768,7 +4346,8 @@ spec:
       data:
         name: swp9s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.34/31
@@ -3776,7 +4355,8 @@ spec:
       data:
         name: swp10s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.36/31
@@ -3784,7 +4364,8 @@ spec:
       data:
         name: swp10s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.38/31
@@ -3792,7 +4373,8 @@ spec:
       data:
         name: swp11s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.40/31
@@ -3800,7 +4382,8 @@ spec:
       data:
         name: swp11s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.42/31
@@ -3808,7 +4391,8 @@ spec:
       data:
         name: swp12s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.44/31
@@ -3816,7 +4400,8 @@ spec:
       data:
         name: swp12s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.46/31
@@ -3824,7 +4409,8 @@ spec:
       data:
         name: swp13s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.48/31
@@ -3832,7 +4418,8 @@ spec:
       data:
         name: swp13s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.50/31
@@ -3840,7 +4427,8 @@ spec:
       data:
         name: swp14s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.52/31
@@ -3848,7 +4436,8 @@ spec:
       data:
         name: swp14s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.54/31
@@ -3856,7 +4445,8 @@ spec:
       data:
         name: swp15s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.56/31
@@ -3864,7 +4454,8 @@ spec:
       data:
         name: swp15s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.58/31
@@ -3872,7 +4463,8 @@ spec:
       data:
         name: swp16s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.60/31
@@ -3880,7 +4472,8 @@ spec:
       data:
         name: swp16s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.62/31
@@ -3888,7 +4481,8 @@ spec:
       data:
         name: swp17s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.64/31
@@ -3896,7 +4490,8 @@ spec:
       data:
         name: swp17s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.66/31
@@ -3904,7 +4499,8 @@ spec:
       data:
         name: swp18s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.68/31
@@ -3912,7 +4508,8 @@ spec:
       data:
         name: swp18s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.70/31
@@ -3920,7 +4517,8 @@ spec:
       data:
         name: swp19s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.72/31
@@ -3928,7 +4526,8 @@ spec:
       data:
         name: swp19s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.74/31
@@ -3936,7 +4535,8 @@ spec:
       data:
         name: swp20s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.76/31
@@ -3944,7 +4544,8 @@ spec:
       data:
         name: swp20s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.78/31
@@ -3952,7 +4553,8 @@ spec:
       data:
         name: swp21s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.80/31
@@ -3960,7 +4562,8 @@ spec:
       data:
         name: swp21s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.82/31
@@ -3968,7 +4571,8 @@ spec:
       data:
         name: swp22s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.84/31
@@ -3976,7 +4580,8 @@ spec:
       data:
         name: swp22s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.86/31
@@ -3984,7 +4589,8 @@ spec:
       data:
         name: swp23s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.88/31
@@ -3992,7 +4598,8 @@ spec:
       data:
         name: swp23s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.90/31
@@ -4000,7 +4607,8 @@ spec:
       data:
         name: swp24s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.92/31
@@ -4008,7 +4616,8 @@ spec:
       data:
         name: swp24s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.94/31
@@ -4016,7 +4625,8 @@ spec:
       data:
         name: swp25s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.96/31
@@ -4024,7 +4634,8 @@ spec:
       data:
         name: swp25s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.98/31
@@ -4032,7 +4643,8 @@ spec:
       data:
         name: swp26s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.100/31
@@ -4040,7 +4652,8 @@ spec:
       data:
         name: swp26s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.102/31
@@ -4048,7 +4661,8 @@ spec:
       data:
         name: swp27s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.104/31
@@ -4056,7 +4670,8 @@ spec:
       data:
         name: swp27s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.106/31
@@ -4064,7 +4679,8 @@ spec:
       data:
         name: swp28s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.108/31
@@ -4072,7 +4688,8 @@ spec:
       data:
         name: swp28s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.110/31
@@ -4080,7 +4697,8 @@ spec:
       data:
         name: swp29s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.112/31
@@ -4088,7 +4706,8 @@ spec:
       data:
         name: swp29s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.114/31
@@ -4096,7 +4715,8 @@ spec:
       data:
         name: swp30s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.116/31
@@ -4104,7 +4724,8 @@ spec:
       data:
         name: swp30s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.118/31
@@ -4112,7 +4733,8 @@ spec:
       data:
         name: swp31s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.120/31
@@ -4120,7 +4742,8 @@ spec:
       data:
         name: swp31s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.122/31
@@ -4128,7 +4751,8 @@ spec:
       data:
         name: swp32s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.124/31
@@ -4136,7 +4760,8 @@ spec:
       data:
         name: swp32s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.126/31
@@ -4144,7 +4769,8 @@ spec:
       data:
         name: swp33s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.128/31
@@ -4152,7 +4778,8 @@ spec:
       data:
         name: swp33s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.130/31
@@ -4160,7 +4787,8 @@ spec:
       data:
         name: swp34s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.132/31
@@ -4168,7 +4796,8 @@ spec:
       data:
         name: swp34s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.134/31
@@ -4176,7 +4805,8 @@ spec:
       data:
         name: swp35s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.136/31
@@ -4184,7 +4814,8 @@ spec:
       data:
         name: swp35s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.138/31
@@ -4192,7 +4823,8 @@ spec:
       data:
         name: swp36s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.140/31
@@ -4200,7 +4832,8 @@ spec:
       data:
         name: swp36s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.142/31
@@ -4208,7 +4841,8 @@ spec:
       data:
         name: swp37s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.144/31
@@ -4216,7 +4850,8 @@ spec:
       data:
         name: swp37s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.146/31
@@ -4224,7 +4859,8 @@ spec:
       data:
         name: swp38s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.148/31
@@ -4232,7 +4868,8 @@ spec:
       data:
         name: swp38s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.150/31
@@ -4240,7 +4877,8 @@ spec:
       data:
         name: swp39s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.152/31
@@ -4248,7 +4886,8 @@ spec:
       data:
         name: swp39s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.154/31
@@ -4256,7 +4895,8 @@ spec:
       data:
         name: swp40s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.156/31
@@ -4264,7 +4904,8 @@ spec:
       data:
         name: swp40s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.158/31
@@ -4272,7 +4913,8 @@ spec:
       data:
         name: swp41s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.160/31
@@ -4280,7 +4922,8 @@ spec:
       data:
         name: swp41s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.162/31
@@ -4288,7 +4931,8 @@ spec:
       data:
         name: swp42s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.164/31
@@ -4296,7 +4940,8 @@ spec:
       data:
         name: swp42s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.166/31
@@ -4304,7 +4949,8 @@ spec:
       data:
         name: swp43s0
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.168/31
@@ -4312,7 +4958,8 @@ spec:
       data:
         name: swp43s1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.1.170/31
@@ -4320,7 +4967,8 @@ spec:
       data:
         name: lo
         status: active
-        role: loopback
+        role: Switch-Loopback
+        interface_type: virtual
         ip_addresses:
         - - default
           - 10.254.254.16/32
@@ -4342,6 +4990,7 @@ spec:
     intended_firmware_version: 5.13.1
     evpn_esi_base_mac: 44:38:39:ff:69:00
     evpn_fabric_mac: 00:00:5E:00:01:69
+    bgp_router_id_interface: lo
     vrfs:
     - OOB
     interfaces:
@@ -4349,7 +4998,8 @@ spec:
       data:
         name: eth0
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mac_address: 2C:5E:AB:12:5A:68
         ip_addresses:
         - - default
@@ -4358,295 +5008,344 @@ spec:
       data:
         name: swp1
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp2
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp3
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp4
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp5
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp6
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp7
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp8
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp9
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp10
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp11
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp12
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp13
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp14
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp15
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp16
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp17
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp18
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp19
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp20
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp21
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp22
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp23
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp24
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp25
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp26
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp27
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp28
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp29
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp30
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp31
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp32
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp33
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp34
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp35
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp36
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp37
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp38
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp39
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp40
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp41
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp42
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp43
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp44
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp45
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp46
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp47
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
       data:
         name: swp48
         status: active
-        role: downlink
+        role: Downlink
+        interface_type: 1000base-t
         untagged_vlan: Vlan203
     - kind: InterfacePhysical
       data:
         name: swp49
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.32.37/31
@@ -4654,7 +5353,8 @@ spec:
       data:
         name: swp51
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp
         ip_addresses:
         - - default
           - 10.254.34.37/31
@@ -4662,6 +5362,8 @@ spec:
       data:
         name: lo-oob
         status: active
+        interface_type: virtual
+        vrf: OOB
         ip_addresses:
         - - default
           - 10.78.154.10/32
@@ -4670,7 +5372,8 @@ spec:
         name: lo
         description: Underlay
         status: active
-        role: loopback
+        role: Switch-Loopback
+        interface_type: virtual
         ip_addresses:
         - - default
           - 10.254.254.17/32
@@ -4678,6 +5381,9 @@ spec:
       data:
         name: vlan201
         status: active
+        role: VLAN-201
+        interface_type: virtual
+        vrf: OOB
         untagged_vlan: Vlan201
         ip_addresses:
         - - default
@@ -4686,6 +5392,9 @@ spec:
       data:
         name: vlan203
         status: active
+        role: VLAN-203
+        interface_type: virtual
+        vrf: OOB
         untagged_vlan: Vlan203
         ip_addresses:
         - - default
@@ -4708,7 +5417,7 @@ spec:
         name: eth0
         description: UFM management
         status: active
-        role: oob
+        interface_type: 1000base-t
         mtu: 1500
         ip_addresses:
         - - default
@@ -4718,7 +5427,8 @@ spec:
         name: rf0
         description: OOB to mleaf swp38
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 1000base-t
         mtu: 1500
         untagged_vlan: Vlan201
     - kind: InterfacePhysical
@@ -4726,4 +5436,5 @@ spec:
         name: enp171s0f0np0
         description: IB data uplink to bleaf swp13s1
         status: active
-        role: uplink
+        role: Uplink
+        interface_type: 400gbase-x-osfp

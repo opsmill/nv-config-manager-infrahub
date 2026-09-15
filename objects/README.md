@@ -66,11 +66,14 @@ dependency order:
   each device JSON (plus both directions of `bgp_peerings.yaml`). Peer
   addresses that belong to devices outside the blueprint are created as bare
   `IpamIPAddress` objects with a description naming their owner.
-- `RoutingBGPPeerGroup.name` is unique and its `device` parent is mandatory,
-  so `UNDERLAY` and `EVPN` exist once, parented to the device holding the
-  site ASN.
-- Nautobot prefix roles (`Site-Aggregate`, `ipminet0`, ...) go into the
-  `IpamPrefix.description`; the dropdown `role` carries only `aggregate`,
-  `uc_jumphost` or `management`.
-- Interface VRF membership is recorded on the interface's IP addresses and on
-  `DcimDevice.vrfs`; the schema has no `vrf` on `DcimInterface`.
+- `UNDERLAY` and `EVPN` peer groups are created per device that has sessions
+  (`RoutingBGPPeerGroup` is unique on device and name).
+- Nautobot prefix roles (`Site-Aggregate`, `ipminet0`, ...) go into
+  `IpamPrefix.role` verbatim; the `role-aggregate` and `uc-jumphost` tags become
+  the `site_aggregate` and `uc_jumphost` booleans.
+- Nautobot interface roles and types are kept verbatim in `role` and
+  `interface_type` (type lowercased, `a_` prefix stripped, underscores to
+  hyphens, as the design template renders it). Interface tags such as
+  `breakout-disable` become `BuiltinTag` objects.
+- Sessions and peer groups in the Nautobot default VRF leave `vrf` unset; only
+  named VRFs (`EXIT`, `OOB`, ...) are created.

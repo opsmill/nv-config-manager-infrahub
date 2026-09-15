@@ -38,3 +38,10 @@ spec:
   - name: UFM
     category: management
     managed_by_nvcm: false
+---
+apiVersion: infrahub.app/v1
+kind: Object
+spec:
+  kind: BuiltinTag
+  data:
+  - name: breakout-disable

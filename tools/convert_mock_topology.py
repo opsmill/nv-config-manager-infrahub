@@ -48,7 +48,6 @@ IPInterface = ipaddress.IPv4Interface | ipaddress.IPv6Interface
 
 API_VERSION = "infrahub.app/v1"
 IP_NAMESPACE = "default"
-DEFAULT_VRF = "default"
 CUMULUS_PLATFORM = "Cumulus Linux"
 DEPLOYMENT_PLACEHOLDERS = ("{{ deployment_name }}", "{{deployment_name}}")
 GENERATED_HEADER = (
@@ -68,14 +67,6 @@ DEVICE_STATUS = {
     "disabled": "disabled",
     "offline": "disabled",
     "failed": "unknown",
-}
-INTERFACE_ROLES = {
-    "uplink": "uplink",
-    "downlink": "downlink",
-    "loopback": "loopback",
-    "switch-loopback": "loopback",
-    "management": "management",
-    "peering": "peering",
 }
 WAN_ROLES = frozenset({"WAN", "TAN-BBR"})
 COMPUTE_HINTS = ("GPU", "DGX", "COMPUTE")
@@ -222,7 +213,7 @@ class BgpSession:
     """One directed BGP session as the schema-library routing_bgp extension models it."""
 
     device: str
-    vrf: str
+    vrf: str | None
     local_asn: int
     remote_asn: int
     remote_device: str
@@ -386,6 +377,14 @@ def dhcp_flags(interface: Json, smn_device: bool) -> tuple[bool, bool]:
     return smn_uplink, False
 
 
+def interface_type_label(interface: Json) -> str | None:
+    """Nautobot interface type as the design template renders it, e.g. 400gbase-x-osfp."""
+    itype = (interface.get("type") or "").lower()
+    if not itype:
+        return None
+    return itype.removeprefix("a_").replace("_", "-")
+
+
 def interface_kind(interface: Json) -> str:
     """Infrahub interface kind for a Nautobot interface type."""
     itype = (interface.get("type") or "").upper()
@@ -396,17 +395,9 @@ def interface_kind(interface: Json) -> str:
     return PHYSICAL_KIND
 
 
-def map_interface_role(interface: Json, gaps: Gaps) -> str | None:
-    """Map a Nautobot interface role onto the DcimInterface role dropdown."""
-    role = role_name(interface)
-    key = role.lower()
-    if key in INTERFACE_ROLES:
-        return INTERFACE_ROLES[key]
-    if key.startswith("management") or "mgmt" in key:
-        return "management"
-    if role:
-        gaps.note("interface role without dropdown choice", role)
-    return "oob" if interface.get("mgmt_only") else None
+def map_interface_role(interface: Json) -> str | None:
+    """Return the Nautobot interface role verbatim; DcimInterface.role is free text."""
+    return role_name(interface) or None
 
 
 def map_device_status(status: object) -> str:
@@ -629,10 +620,12 @@ def build_roles(blueprint: Blueprint) -> list[Json]:
 
 
 def build_tags(blueprint: Blueprint) -> list[Json]:
-    """BuiltinTag objects for tags attached to devices (the only tagged kind loaded)."""
-    tags = {
-        named(tag) for device in blueprint.devices for tag in device.get("tags", []) if named(tag)
-    }
+    """BuiltinTag objects for every tag attached to a device or an interface."""
+    tags: set[str] = set()
+    for device in blueprint.devices:
+        tags |= {named(tag) for tag in device.get("tags", []) if named(tag)}
+        for interface in device.get("interfaces", []):
+            tags |= {named(tag) for tag in interface.get("tags") or [] if named(tag)}
     return [document("BuiltinTag", [{"name": name} for name in sorted(tags)])] if tags else []
 
 
@@ -704,17 +697,9 @@ def device_vrfs(device: Json) -> list[str]:
 
 
 def build_vrfs(blueprint: Blueprint) -> list[Json]:
-    """IpamVRF objects, plus the implicit default VRF required by BGP sessions."""
+    """IpamVRF objects named in the source data."""
     vrfs = collect_vrfs(blueprint)
     data = [clean({"name": name, "vrf_rd": rd}) for name, rd in sorted(vrfs.items())]
-    if DEFAULT_VRF not in vrfs:
-        data.insert(
-            0,
-            {
-                "name": DEFAULT_VRF,
-                "description": "Default routing table, implicit in the source data",
-            },
-        )
     return [document("IpamVRF", data)]
 
 
@@ -801,23 +786,20 @@ def collect_prefixes(blueprint: Blueprint) -> list[PrefixRecord]:
     return sorted(records.values(), key=lambda record: (record.network.prefixlen, record.network))
 
 
-def prefix_role(record: PrefixRecord, gaps: Gaps) -> str | None:
-    """IpamPrefix role dropdown value replacing the Nautobot tags."""
+def prefix_flags(record: PrefixRecord, gaps: Gaps) -> Json:
+    """Booleans replacing the role-aggregate and uc-jumphost tags; other tags are gaps."""
     for tag in record.tags - {"role-aggregate", "uc-jumphost", "dhcp-subnet"}:
         gaps.note("prefix tag without home", tag)
-    if "role-aggregate" in record.tags:
-        return "aggregate"
-    if "uc-jumphost" in record.tags:
-        return "uc_jumphost"
-    if "dhcp-subnet" in record.tags and record.from_management:
-        return "management"
-    return None
+    return {
+        "site_aggregate": True if "role-aggregate" in record.tags else None,
+        "uc_jumphost": True if "uc-jumphost" in record.tags else None,
+    }
 
 
 def build_prefixes(
     blueprint: Blueprint, index: LocationIndex, records: list[PrefixRecord]
 ) -> list[Json]:
-    """IpamPrefix objects scoped to the site, Nautobot role kept in the description."""
+    """IpamPrefix objects scoped to the site, Nautobot role name kept verbatim."""
     site = index.default_site()
     scope = index.reference(site) if site else None
     data = []
@@ -833,16 +815,14 @@ def build_prefixes(
                     "prefix": record.prefix,
                     "ip_namespace": IP_NAMESPACE,
                     "status": "active",
-                    "role": prefix_role(record, blueprint.gaps),
-                    "description": record.nautobot_role,
+                    "role": record.nautobot_role,
+                    **prefix_flags(record, blueprint.gaps),
                     "member_type": "prefix" if has_children else "address",
                     "tenant": blueprint.global_tenant,
                     "scope": scope,
                 }
             )
         )
-        if record.nautobot_role:
-            blueprint.gaps.note("prefix role kept in description only", record.nautobot_role)
     return [document("IpamPrefix", data)]
 
 
@@ -928,11 +908,14 @@ def interface_object(
         "name": name,
         "description": interface.get("description"),
         "status": "active" if interface.get("enabled", True) else "disabled",
-        "role": map_interface_role(interface, gaps),
+        "role": map_interface_role(interface),
+        "interface_type": interface_type_label(interface),
         "mtu": interface.get("mtu"),
         "mac_address": interface.get("mac_address"),
         "ib_guid": (interface.get("custom_fields") or {}).get("ib_guid"),
         "isis_metric": isis_metrics(device.get("config_context") or {}).get(name),
+        "vrf": named(interface.get("vrf")),
+        "tags": [named(tag) for tag in interface.get("tags") or [] if named(tag)],
         "untagged_vlan": vlan_label(interface["untagged_vlan"])
         if interface.get("untagged_vlan")
         else None,
@@ -952,15 +935,6 @@ def interface_object(
     parent = named(interface.get("parent_interface"))
     if kind == VIRTUAL_KIND and parent and kinds.get(parent) in (PHYSICAL_KIND, LAG_KIND):
         data["parent_interface"] = [device["name"], parent]
-    for tag in interface.get("tags") or []:
-        gaps.note("interface tag without home (DcimInterface has no tags)", named(tag))
-    if interface.get("type"):
-        gaps.note(
-            "interface type without home (DcimInterface has no type attribute)",
-            interface["type"].upper(),
-        )
-    if named(interface.get("vrf")):
-        gaps.note("interface vrf kept on its IP addresses only", f"{device['name']} {name}")
     return clean(data)
 
 
@@ -978,6 +952,15 @@ def interface_objects(device: Json, gaps: Gaps) -> list[Json]:
             if data is not None:
                 rows.append({"kind": wanted, "data": data})
     return rows
+
+
+def router_id_interface(device: Json) -> str | None:
+    """Name of the router-id interface on the device's first BGP routing instance."""
+    for instance in device.get("bgp_routing_instances") or []:
+        interfaces = (instance.get("router_id") or {}).get("interfaces") or []
+        if interfaces and named(interfaces[0]):
+            return named(interfaces[0])
+    return None
 
 
 def primary_address(device: Json) -> str | None:
@@ -1029,6 +1012,7 @@ def device_object(device: Json, blueprint: Blueprint, index: LocationIndex) -> J
             "evpn_esi_base_mac": context.get("evpn_esi_base_mac"),
             "evpn_fabric_mac": context.get("fabric-mac"),
             "evpn_df_preference": (context.get("evpn") or {}).get("df-preference"),
+            "bgp_router_id_interface": router_id_interface(device),
             "alias": custom.get("alias"),
             "external_id": custom.get("nico_machine_id"),
             "vrfs": device_vrfs(device),
@@ -1133,14 +1117,12 @@ def local_address_for(
     return interface_ipv4(device, router_id_interface)
 
 
-def sessions_from_instances(device: Json, gaps: Gaps) -> list[BgpSession]:
+def sessions_from_instances(device: Json) -> list[BgpSession]:
     """Sessions from the ``bgp_routing_instances[].endpoints`` block of a device payload."""
     sessions: list[BgpSession] = []
+    router_id = router_id_interface(device)
     for instance in device.get("bgp_routing_instances") or []:
         local_asn = int(instance["autonomous_system"]["asn"])
-        router_interfaces = (instance.get("router_id") or {}).get("interfaces") or []
-        router_id_interface = named(router_interfaces[0]) if router_interfaces else None
-        gaps.note("BGP router_id interface without home", f"{device['name']} {router_id_interface}")
         for endpoint in instance.get("endpoints") or []:
             peer = endpoint.get("peer") or {}
             peer_instance = peer.get("routing_instance") or {}
@@ -1160,13 +1142,13 @@ def sessions_from_instances(device: Json, gaps: Gaps) -> list[BgpSession]:
             sessions.append(
                 BgpSession(
                     device=device["name"],
-                    vrf=named((endpoint.get("source_interface") or {}).get("vrf")) or DEFAULT_VRF,
+                    vrf=named((endpoint.get("source_interface") or {}).get("vrf")),
                     local_asn=local_asn,
                     remote_asn=int(remote_asn),
                     remote_device=remote_device,
                     remote_interface=source.get("name"),
                     remote_ip=remote_ip,
-                    local_ip=local_address_for(device, remote_ip, router_id_interface),
+                    local_ip=local_address_for(device, remote_ip, router_id),
                     peer_group=named(endpoint.get("peer_group")),
                 )
             )
@@ -1204,7 +1186,7 @@ def sessions_from_seed(blueprint: Blueprint, asns: dict[str, int]) -> list[BgpSe
             sessions.append(
                 BgpSession(
                     device=local,
-                    vrf=local_vrf or DEFAULT_VRF,
+                    vrf=local_vrf,
                     local_asn=asns[local],
                     remote_asn=asns[remote],
                     remote_device=remote,
@@ -1221,35 +1203,16 @@ def collect_sessions(blueprint: Blueprint, asns: dict[str, int]) -> list[BgpSess
     """All sessions, de-duplicated on (device, remote address, peer group)."""
     unique: dict[tuple[str, str | None, str | None], BgpSession] = {}
     for device in blueprint.devices:
-        for session in sessions_from_instances(device, blueprint.gaps):
+        for session in sessions_from_instances(device):
             unique.setdefault((session.device, session.remote_ip, session.peer_group), session)
     for session in sessions_from_seed(blueprint, asns):
         unique.setdefault((session.device, session.remote_ip, session.peer_group), session)
     return sorted(unique.values(), key=lambda session: (session.device, session.description))
 
 
-def peer_group_owner(
-    blueprint: Blueprint, asns: dict[str, int], index: LocationIndex
-) -> str | None:
-    """Device that parents the shared peer groups: the site-ASN holder, else the first switch.
-
-    RoutingBGPPeerGroup.name is unique and its ``device`` Parent is mandatory, so
-    UNDERLAY and EVPN exist once and hang off one device.
-    """
-    site = index.default_site()
-    site_asn = site_asns(blueprint).get(site) if site else None
-    candidates = sorted(
-        name for name, asn in asns.items() if any(d["name"] == name for d in blueprint.devices)
-    )
-    for name in candidates:
-        if site_asn is not None and asns[name] == site_asn:
-            return name
-    return candidates[0] if candidates else None
-
-
-def peer_group_description(name: str) -> str:
-    """Return the description used in the RoutingBGPPeerGroup HFID."""
-    return f"{name} BGP peer group"
+def peer_group_description(device: str, name: str) -> str:
+    """Return the unique description of a per-device RoutingBGPPeerGroup."""
+    return f"{name} peer group on {device}"
 
 
 def session_object(session: BgpSession) -> Json:
@@ -1265,29 +1228,25 @@ def session_object(session: BgpSession) -> Json:
             "remote_as": as_ref(session.remote_asn),
             "local_ip": ip_ref(session.local_ip) if session.local_ip else None,
             "remote_ip": ip_ref(session.remote_ip) if session.remote_ip else None,
-            "peer_group": [session.peer_group, peer_group_description(session.peer_group)]
-            if session.peer_group
-            else None,
+            "peer_group": [session.device, session.peer_group] if session.peer_group else None,
         }
     )
 
 
-def build_bgp(
-    blueprint: Blueprint, index: LocationIndex, ip_records: dict[str, IpRecord]
-) -> list[Json]:
-    """Autonomous systems, shared peer groups and one session per directed peering."""
+def build_bgp(blueprint: Blueprint, ip_records: dict[str, IpRecord]) -> list[Json]:
+    """Autonomous systems, per-device peer groups and one session per directed peering."""
     asns = device_asns(blueprint)
     sessions = collect_sessions(blueprint, asns)
     tenants = {device["name"]: named(device.get("tenant")) for device in blueprint.devices}
     organisations: dict[int, str | None] = {}
     members: dict[int, set[str]] = defaultdict(set)
     for device_name, asn in asns.items():
-        members[asn].add(device_name) if device_name in tenants else None
-        organisations.setdefault(asn, tenants.get(device_name) or blueprint.global_tenant)
+        if device_name in tenants:
+            members[asn].add(device_name)
+            organisations.setdefault(asn, tenants[device_name])
+        organisations.setdefault(asn, None)
     for session in sessions:
-        organisations.setdefault(
-            session.remote_asn, tenants.get(session.device) or blueprint.global_tenant
-        )
+        organisations.setdefault(session.remote_asn, None)
         if session.remote_ip and session.remote_ip not in ip_records:
             owner = f"{session.remote_device} {session.remote_interface or ''}".strip()
             ip_records[session.remote_ip] = IpRecord(
@@ -1304,31 +1263,21 @@ def build_bgp(
         )
         for asn in sorted(organisations)
     ]
-    owner = peer_group_owner(blueprint, asns, index)
-    groups = sorted({session.peer_group for session in sessions if session.peer_group})
+    groups = sorted({(s.device, s.peer_group) for s in sessions if s.peer_group})
     group_rows = [
         {
             "name": group,
-            "description": peer_group_description(group),
+            "description": peer_group_description(device, group),
             "status": "active",
-            "device": owner,
-            "vrf": DEFAULT_VRF,
+            "device": device,
         }
-        for group in groups
+        for device, group in groups
     ]
-    if groups and owner is None:
-        blueprint.gaps.note(
-            "BGP peer groups need a parent device but none has an ASN", ", ".join(groups)
-        )
-        group_rows = []
     return [
         document("RoutingAutonomousSystem", as_rows),
         document("RoutingBGPPeerGroup", group_rows),
         document("RoutingBGPSession", [session_object(session) for session in sessions]),
     ]
-
-
-# ------------------------------------------------------------- NVCM state and services
 
 
 def build_device_status(blueprint: Blueprint) -> list[Json]:
@@ -1740,7 +1689,7 @@ def convert(blueprint: Blueprint, output_dir: Path) -> dict[str, int]:
     index = LocationIndex(blueprint)
     prefix_records = collect_prefixes(blueprint)
     ip_records = collect_ip_records(blueprint)
-    bgp_documents = build_bgp(blueprint, index, ip_records)  # adds BGP peer addresses to ip_records
+    bgp_documents = build_bgp(blueprint, ip_records)  # adds BGP peer addresses to ip_records
     roles = {row["name"] for row in build_roles(blueprint)[0]["spec"]["data"]}
     platforms = {row["name"] for row in build_platforms_and_types(blueprint)[0]["spec"]["data"]}
     files: list[tuple[str, list[Json]]] = [

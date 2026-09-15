@@ -5,8 +5,6 @@ kind: Object
 spec:
   kind: IpamVRF
   data:
-  - name: default
-    description: Default routing table, implicit in the source data
   - name: EXIT
     vrf_rd: '*:4000'
   - name: INBAND
