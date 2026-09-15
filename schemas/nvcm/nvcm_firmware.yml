@@ -1,0 +1,243 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
+version: "1.0"
+
+# Firmware intent. Replaces the config-context keys intended-firmware,
+# firmware_bundles, firmware_bundle_version, firmware_overrides and the
+# location-firmware-targets config-context schema.
+#
+# Bundle shape mirrors RenderFirmwareBundle: one operating-system artifact and
+# a set of named component artifacts (BMC, CPLD, NIC firmware and so on).
+
+nodes:
+  - name: FirmwareBundle
+    namespace: Nvcm
+    description: Versioned set of OS image and component firmware for a platform
+    label: Firmware Bundle
+    icon: mdi:package-variant-closed
+    include_in_menu: true
+    human_friendly_id:
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [name__value]
+      - [platform, version__value]
+    attributes:
+      - name: name
+        description: Unique bundle name, for example cumulus-linux-5.16.1
+        kind: Text
+        unique: true
+        order_weight: 900
+      - name: version
+        description: Bundle version selected by firmware_bundle on the device
+        kind: Text
+        order_weight: 1000
+      - name: description
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: os_version
+        label: OS version
+        kind: Text
+        order_weight: 1200
+      - name: os_image_file
+        label: OS image file
+        kind: Text
+        optional: true
+        order_weight: 1300
+      - name: os_source_path
+        label: OS source path
+        description: Object-storage path the ZTP file store serves the image from
+        kind: Text
+        optional: true
+        order_weight: 1400
+    relationships:
+      - name: platform
+        peer: DcimPlatform
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: firmware_bundle__platform
+        order_weight: 900
+      - name: components
+        peer: NvcmFirmwareComponent
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: firmware_bundle__component
+        order_weight: 2000
+
+  - name: FirmwareComponent
+    namespace: Nvcm
+    description: One component firmware artifact inside a bundle
+    label: Firmware Component
+    icon: mdi:chip
+    include_in_menu: false
+    human_friendly_id:
+      - bundle__name__value
+      - name__value
+    display_label: "{{ bundle__name__value }} {{ name__value }}"
+    uniqueness_constraints:
+      - [bundle, name__value]
+    attributes:
+      - name: name
+        description: Component name as the upgrade workflow reports it
+        kind: Text
+        order_weight: 1000
+      - name: reported_version
+        description: Version string the device reports once installed
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: image_file
+        kind: Text
+        optional: true
+        order_weight: 1200
+      - name: source_path
+        kind: Text
+        optional: true
+        order_weight: 1300
+    relationships:
+      - name: bundle
+        peer: NvcmFirmwareBundle
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: firmware_bundle__component
+        order_weight: 900
+
+  - name: FirmwareOverride
+    namespace: Nvcm
+    description: Per-device deviations from the selected firmware bundle
+    label: Firmware Override
+    icon: mdi:tune-variant
+    include_in_menu: false
+    human_friendly_id:
+      - device__name__value
+    display_label: "{{ device__name__value }}"
+    uniqueness_constraints:
+      - [device]
+    attributes:
+      - name: skip_components
+        description: Component names to leave untouched during upgrade
+        kind: List
+        optional: true
+        order_weight: 1000
+    relationships:
+      - name: device
+        peer: DcimGenericDevice
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: device__firmware_override
+        order_weight: 900
+      - name: custom_components
+        peer: NvcmFirmwareCustomComponent
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: firmware_override__custom_component
+        order_weight: 2000
+
+  - name: FirmwareCustomComponent
+    namespace: Nvcm
+    description: Component artifact that replaces the bundle entry for one device
+    label: Custom Firmware Component
+    icon: mdi:chip
+    include_in_menu: false
+    # No human_friendly_id: identity needs two relationship hops
+    # (override -> device -> name) and paths allow one. Reference by id.
+    display_label: "{{ name__value }}"
+    uniqueness_constraints:
+      - [override, name__value]
+    attributes:
+      - name: name
+        kind: Text
+        order_weight: 1000
+      - name: reported_version
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: image_file
+        kind: Text
+        optional: true
+        order_weight: 1200
+      - name: source_path
+        kind: Text
+        optional: true
+        order_weight: 1300
+    relationships:
+      - name: override
+        peer: NvcmFirmwareOverride
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: firmware_override__custom_component
+        order_weight: 900
+
+  - name: FirmwareTarget
+    namespace: Nvcm
+    description: Desired OS version for a role and platform within a location
+    label: Firmware Target
+    icon: mdi:target
+    include_in_menu: true
+    human_friendly_id:
+      - location__name__value
+      - device_role__name__value
+      - platform__name__value
+    display_label: "{{ location__name__value }} {{ device_role__name__value }} {{ platform__name__value }}"
+    uniqueness_constraints:
+      - [location, device_role, platform]
+    attributes:
+      - name: desired_version
+        description: OS version the switch OS upgrade workflow drives towards
+        kind: Text
+        order_weight: 1000
+    relationships:
+      - name: location
+        peer: LocationGeneric
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: firmware_target__location
+        order_weight: 900
+      - name: device_role
+        peer: NvcmDeviceRole
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: firmware_target__device_role
+        order_weight: 910
+      - name: platform
+        peer: DcimPlatform
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: firmware_target__platform
+        order_weight: 920
+
+extensions:
+  nodes:
+    - kind: DcimGenericDevice
+      attributes:
+        - name: intended_firmware_version
+          label: Intended firmware version
+          description: Written by the OS upgrade workflow, read by ZTP and rendering
+          kind: Text
+          optional: true
+          order_weight: 2000
+      relationships:
+        - name: firmware_bundle
+          peer: NvcmFirmwareBundle
+          kind: Attribute
+          cardinality: one
+          optional: true
+          identifier: device__firmware_bundle
+          order_weight: 3300
+        - name: firmware_override
+          peer: NvcmFirmwareOverride
+          kind: Attribute
+          cardinality: one
+          optional: true
+          identifier: device__firmware_override
+          order_weight: 3400

@@ -1,0 +1,307 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
+version: "1.0"
+
+# DHCP intent. Replaces the Nautobot tags dhcp-subnet, dhcp-pool and
+# dhcp-reserve, the prefix_to_gateway relationship, and the two config-context
+# schemas nv-config-manager-site-dhcp-option-def and
+# nv-config-manager-kea-static-data.
+#
+# Pools are ranges, not one tagged IP address per pool member. Reservations
+# are a flag on the IP address because the address already links to an
+# interface with a MAC and a device with a serial number.
+#
+# Kea option name to value maps stay JSON: the option names are Kea's own
+# vocabulary, validated by Kea, and NVCM passes them through verbatim.
+
+nodes:
+  - name: DhcpScope
+    namespace: Nvcm
+    description: Prefix served by Kea, with its gateway and pools
+    label: DHCP Scope
+    icon: mdi:lan
+    include_in_menu: true
+    menu_placement: IpamPrefix
+    # No human_friendly_id: IpamPrefix is unique on (namespace, prefix), which
+    # needs two relationship hops. Reference scopes by id or through the prefix.
+    display_label: "{{ prefix__prefix__value }}"
+    uniqueness_constraints:
+      - [prefix]
+    attributes:
+      - name: enabled
+        kind: Boolean
+        default_value: true
+        order_weight: 1000
+      - name: description
+        kind: Text
+        optional: true
+        order_weight: 1100
+    relationships:
+      - name: prefix
+        peer: IpamPrefix
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: prefix__dhcp_scope
+        order_weight: 900
+      - name: gateway
+        description: Router option; derived as the first host when unset
+        peer: IpamIPAddress
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: dhcp_scope__gateway
+        order_weight: 1200
+      - name: pools
+        peer: NvcmDhcpPool
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: dhcp_scope__pool
+        order_weight: 2000
+
+  - name: DhcpPool
+    namespace: Nvcm
+    description: Dynamic address range inside a DHCP scope
+    label: DHCP Pool
+    icon: mdi:arrow-expand-horizontal
+    include_in_menu: false
+    human_friendly_id:
+      - start__value
+    display_label: "{{ start__value }} - {{ end__value }}"
+    uniqueness_constraints:
+      - [scope, start__value]
+    attributes:
+      - name: start
+        kind: IPHost
+        order_weight: 1000
+      - name: end
+        kind: IPHost
+        order_weight: 1100
+    relationships:
+      - name: scope
+        peer: NvcmDhcpScope
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: dhcp_scope__pool
+        order_weight: 900
+
+  - name: DhcpOptionDefinition
+    namespace: Nvcm
+    description: Custom Kea option definition, emitted as option-def
+    label: DHCP Option Definition
+    icon: mdi:code-braces
+    include_in_menu: true
+    menu_placement: NvcmDhcpScope
+    human_friendly_id:
+      - space__value
+      - name__value
+    display_label: "{{ name__value }} ({{ code__value }})"
+    uniqueness_constraints:
+      - [space__value, name__value]
+      - [space__value, code__value]
+    attributes:
+      - name: name
+        kind: Text
+        order_weight: 1000
+      - name: code
+        kind: Number
+        order_weight: 1100
+      - name: space
+        kind: Text
+        default_value: dhcp4
+        order_weight: 1200
+      - name: option_type
+        label: Type
+        kind: Text
+        default_value: string
+        order_weight: 1300
+      - name: array
+        kind: Boolean
+        default_value: false
+        order_weight: 1400
+      - name: record_types
+        kind: Text
+        optional: true
+        order_weight: 1500
+      - name: encapsulate
+        kind: Text
+        optional: true
+        order_weight: 1600
+      - name: ip_version
+        kind: Dropdown
+        default_value: "4"
+        order_weight: 1700
+        choices:
+          - name: "4"
+          - name: "6"
+    relationships:
+      - name: locations
+        description: Sites this definition applies to, empty means all
+        peer: LocationGeneric
+        kind: Attribute
+        cardinality: many
+        identifier: dhcp_option_definition__location
+        order_weight: 2000
+
+  - name: DhcpOptionSet
+    namespace: Nvcm
+    description: Kea options applied to reservations matched by interface role or name
+    label: DHCP Option Set
+    icon: mdi:format-list-bulleted-type
+    include_in_menu: false
+    human_friendly_id:
+      - profile__name__value
+      - name__value
+    display_label: "{{ profile__name__value }} {{ name__value }}"
+    uniqueness_constraints:
+      - [profile, name__value]
+    attributes:
+      - name: name
+        kind: Text
+        order_weight: 1000
+      - name: match_kind
+        kind: Dropdown
+        order_weight: 1100
+        choices:
+          - name: interface_role
+            description: Match the reserved interface by its role
+          - name: interface_name
+            description: Match the reserved interface by its name
+      - name: match_value
+        description: Interface role or interface name to match
+        kind: Text
+        order_weight: 1200
+      - name: subnet_options
+        description: Kea option-data added to the subnet, name to value
+        kind: JSON
+        optional: true
+        order_weight: 1300
+      - name: reservation_options
+        description: Kea option-data added to each matching reservation
+        kind: JSON
+        optional: true
+        order_weight: 1400
+      - name: subnet_config
+        description: Kea subnet keys such as reservations-global
+        kind: JSON
+        optional: true
+        order_weight: 1500
+      - name: client_id_template
+        description: Jinja2 template for client-id, receives serial
+        kind: Text
+        optional: true
+        order_weight: 1600
+    relationships:
+      - name: profile
+        peer: NvcmServiceProfile
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: service_profile__dhcp_option_set
+        order_weight: 900
+
+  - name: DhcpStaticSubnet
+    namespace: Nvcm
+    description: Kea subnet for hosts not modelled as devices
+    label: DHCP Static Subnet
+    icon: mdi:lan-pending
+    include_in_menu: true
+    menu_placement: NvcmDhcpScope
+    human_friendly_id:
+      - subnet__value
+    display_label: subnet__value
+    uniqueness_constraints:
+      - [subnet__value]
+    attributes:
+      - name: subnet
+        kind: IPNetwork
+        order_weight: 1000
+      - name: option_data
+        description: Kea option-data list for the subnet
+        kind: JSON
+        optional: true
+        order_weight: 1100
+      - name: pools
+        description: Kea pool strings, for example 10.0.0.10-10.0.0.20
+        kind: List
+        optional: true
+        order_weight: 1200
+      - name: reservations_global
+        kind: Boolean
+        default_value: false
+        order_weight: 1300
+      - name: reservations_in_subnet
+        kind: Boolean
+        default_value: true
+        order_weight: 1400
+    relationships:
+      - name: locations
+        peer: LocationGeneric
+        kind: Attribute
+        cardinality: many
+        identifier: dhcp_static_subnet__location
+        order_weight: 2000
+
+  - name: DhcpStaticReservation
+    namespace: Nvcm
+    description: Kea reservation for a host not modelled as a device
+    label: DHCP Static Reservation
+    icon: mdi:pin-outline
+    include_in_menu: true
+    menu_placement: NvcmDhcpScope
+    human_friendly_id:
+      - hostname__value
+    display_label: hostname__value
+    uniqueness_constraints:
+      - [hostname__value]
+      - [ip_address__value]
+    attributes:
+      - name: hostname
+        kind: Text
+        order_weight: 1000
+      - name: ip_address
+        kind: IPHost
+        order_weight: 1100
+      - name: hw_address
+        kind: MacAddress
+        optional: true
+        order_weight: 1200
+      - name: client_id
+        kind: Text
+        optional: true
+        order_weight: 1300
+      - name: option_data
+        kind: JSON
+        optional: true
+        order_weight: 1400
+
+extensions:
+  nodes:
+    - kind: IpamPrefix
+      relationships:
+        - name: dhcp_scope
+          label: DHCP scope
+          peer: NvcmDhcpScope
+          kind: Attribute
+          cardinality: one
+          optional: true
+          identifier: prefix__dhcp_scope
+          order_weight: 3000
+    - kind: IpamIPAddress
+      attributes:
+        - name: dhcp_reservation
+          label: DHCP reservation
+          description: Kea reserves this address for the attached interface
+          kind: Boolean
+          default_value: false
+          order_weight: 1900
+      relationships:
+        - name: dhcp_gateway_for
+          label: DHCP gateway for
+          peer: NvcmDhcpScope
+          kind: Attribute
+          cardinality: many
+          identifier: dhcp_scope__gateway
+          order_weight: 3000

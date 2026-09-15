@@ -1,0 +1,206 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
+version: "1.0"
+
+# NVCM operational state per device. Replaces the Nautobot nv_config_manager
+# app models ConfigManagerDeviceStatus, IntendedConfig and BackupConfig.
+#
+# These nodes are branch agnostic: NVCM writes them directly to the default
+# branch and the values describe what has happened, not what is intended.
+# A device is "managed" when an NvcmDeviceStatus exists for it, matching
+# the Nautobot semantics that get_managed_device_metadata relies on.
+
+nodes:
+  - name: DeviceStatus
+    namespace: Nvcm
+    description: NVCM enablement flags for a device
+    label: NVCM Device Status
+    icon: mdi:toggle-switch-outline
+    include_in_menu: true
+    menu_placement: DcimGenericDevice
+    branch: agnostic
+    human_friendly_id:
+      - device__name__value
+    display_label: "{{ device__name__value }}"
+    uniqueness_constraints:
+      - [device]
+    attributes:
+      - name: render_enabled
+        kind: Boolean
+        default_value: false
+        order_weight: 1000
+      - name: deploy_enabled
+        kind: Boolean
+        default_value: false
+        order_weight: 1100
+      - name: backup_enabled
+        kind: Boolean
+        default_value: false
+        order_weight: 1200
+      - name: ztp_enabled
+        kind: Boolean
+        default_value: false
+        order_weight: 1300
+      - name: is_aggregate_managed
+        label: Aggregate managed
+        description: Device belongs to the aggregate NVCM environment
+        kind: Boolean
+        default_value: false
+        order_weight: 1400
+    relationships:
+      - name: device
+        peer: DcimGenericDevice
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: device__nvcm_status
+        order_weight: 900
+
+  - name: IntendedConfig
+    namespace: Nvcm
+    description: Pointer to the latest rendered configuration in the Config Store
+    label: NVCM Intended Config
+    icon: mdi:file-document-check-outline
+    include_in_menu: true
+    menu_placement: DcimGenericDevice
+    branch: agnostic
+    human_friendly_id:
+      - device__name__value
+    display_label: "{{ device__name__value }}"
+    uniqueness_constraints:
+      - [device]
+    attributes:
+      - name: config_store_instance
+        kind: Text
+        optional: true
+        order_weight: 1000
+      - name: path
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: commit_id
+        kind: Text
+        optional: true
+        order_weight: 1200
+      - name: template_version
+        kind: Text
+        optional: true
+        order_weight: 1300
+      - name: commit_message
+        kind: TextArea
+        optional: true
+        order_weight: 1400
+      - name: updated
+        kind: DateTime
+        optional: true
+        order_weight: 1500
+      - name: updated_by
+        kind: Text
+        optional: true
+        order_weight: 1600
+    relationships:
+      - name: device
+        peer: DcimGenericDevice
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: device__nvcm_intended_config
+        order_weight: 900
+
+  - name: BackupConfig
+    namespace: Nvcm
+    description: Pointer to the latest configuration backup in the Config Store
+    label: NVCM Backup Config
+    icon: mdi:backup-restore
+    include_in_menu: true
+    menu_placement: DcimGenericDevice
+    branch: agnostic
+    human_friendly_id:
+      - device__name__value
+    display_label: "{{ device__name__value }}"
+    uniqueness_constraints:
+      - [device]
+    attributes:
+      - name: config_store_url
+        kind: URL
+        optional: true
+        order_weight: 1000
+      - name: filename
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: commit_id
+        kind: Text
+        optional: true
+        order_weight: 1200
+      - name: deployed_commit_id
+        kind: Text
+        optional: true
+        order_weight: 1300
+      - name: workflow_id
+        kind: Text
+        optional: true
+        order_weight: 1400
+      - name: commit_message
+        kind: TextArea
+        optional: true
+        order_weight: 1500
+      - name: user
+        kind: Text
+        optional: true
+        order_weight: 1600
+    relationships:
+      - name: device
+        peer: DcimGenericDevice
+        kind: Attribute
+        cardinality: one
+        optional: false
+        identifier: device__nvcm_backup_config
+        order_weight: 900
+
+extensions:
+  nodes:
+    - kind: DcimGenericDevice
+      attributes:
+        - name: alias
+          description: Alternate host name reported by BMC or DPU discovery
+          kind: Text
+          optional: true
+          order_weight: 1600
+        - name: external_id
+          description: Identifier from an external inventory or machine registry
+          kind: Text
+          optional: true
+          order_weight: 1700
+      relationships:
+        - name: nvcm_status
+          label: NVCM Status
+          peer: NvcmDeviceStatus
+          kind: Attribute
+          cardinality: one
+          optional: true
+          identifier: device__nvcm_status
+          order_weight: 3000
+        - name: nvcm_intended_config
+          label: NVCM Intended Config
+          peer: NvcmIntendedConfig
+          kind: Attribute
+          cardinality: one
+          optional: true
+          identifier: device__nvcm_intended_config
+          order_weight: 3100
+        - name: nvcm_backup_config
+          label: NVCM Backup Config
+          peer: NvcmBackupConfig
+          kind: Attribute
+          cardinality: one
+          optional: true
+          identifier: device__nvcm_backup_config
+          order_weight: 3200
+    - kind: DcimInterface
+      attributes:
+        - name: ib_guid
+          label: InfiniBand GUID
+          kind: Text
+          optional: true
+          order_weight: 1800

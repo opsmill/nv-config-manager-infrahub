@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
+version: "1.0"
+
+# Location-level render intent that Nautobot derived from tags and a custom
+# relationship: role-aggregate and uc-jumphost prefixes (now IpamPrefix.role
+# choices in the adapted base schema), VLAN DHCP helper addresses (the
+# vlan_to_helper_address relationship), and NVLink domain topology.
+
+nodes:
+  - name: NvlinkDomain
+    namespace: Nvcm
+    description: NVLink domain and its topology identifier for switch rendering
+    label: NVLink Domain
+    icon: mdi:vector-link
+    include_in_menu: true
+    menu_placement: DcimGenericDevice
+    human_friendly_id:
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [name__value]
+    attributes:
+      - name: name
+        kind: Text
+        order_weight: 1000
+      - name: topology
+        description: Topology identifier consumed by the nvlink_topology filter
+        kind: Text
+        order_weight: 1100
+      - name: description
+        kind: Text
+        optional: true
+        order_weight: 1200
+    relationships:
+      - name: location
+        peer: LocationGeneric
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: nvlink_domain__location
+        order_weight: 900
+      - name: devices
+        peer: DcimGenericDevice
+        kind: Attribute
+        cardinality: many
+        identifier: device__nvlink_domain
+        order_weight: 2000
+
+extensions:
+  nodes:
+    - kind: IpamVLAN
+      relationships:
+        - name: dhcp_helper_addresses
+          label: DHCP helper addresses
+          description: Relay targets rendered on this VLAN's SVI
+          peer: IpamIPAddress
+          kind: Attribute
+          cardinality: many
+          identifier: vlan__dhcp_helper_address
+          order_weight: 3000
+    - kind: IpamIPAddress
+      relationships:
+        - name: dhcp_helper_for_vlans
+          label: DHCP helper for VLANs
+          peer: IpamVLAN
+          kind: Attribute
+          cardinality: many
+          identifier: vlan__dhcp_helper_address
+          order_weight: 3100
+    - kind: DcimGenericDevice
+      relationships:
+        - name: nvlink_domains
+          peer: NvcmNvlinkDomain
+          kind: Attribute
+          cardinality: many
+          identifier: device__nvlink_domain
+          order_weight: 3500

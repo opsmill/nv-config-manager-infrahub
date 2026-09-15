@@ -1,0 +1,273 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
+version: "1.0"
+
+# Overlay model replacing the Nautobot nautobot_app_overlays app. Feeds
+# RenderOverlayData (L2 and L3 VNIs, per-device overlay VRFs) and the
+# Spectrum-X and InfiniBand PKey Temporal workflows.
+#
+# An assignment binds an overlay to a device or an interface. Two optional
+# relationships stand in for Nautobot's generic foreign key; exactly one is
+# expected to be set, enforced by a check rather than the schema.
+
+nodes:
+  - name: Overlay
+    namespace: Nvcm
+    description: Tenant isolation domain, VXLAN EVPN, Spectrum-X VRF or IB partition
+    label: Overlay
+    icon: mdi:layers-triple-outline
+    include_in_menu: true
+    human_friendly_id:
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [name__value]
+    attributes:
+      - name: name
+        kind: Text
+        order_weight: 1000
+      - name: description
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: isolation_type
+        kind: Dropdown
+        order_weight: 1200
+        choices:
+          - name: vxlan_evpn
+          - name: spectrum_x_vrf
+          - name: ib_pkey
+          - name: ib_mkey
+          - name: nvlink_partition
+      - name: status
+        kind: Dropdown
+        default_value: active
+        order_weight: 1300
+        choices:
+          - name: active
+          - name: planned
+          - name: decommissioned
+    relationships:
+      - name: location
+        peer: LocationGeneric
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: overlay__location
+        order_weight: 900
+      - name: tenant
+        peer: OrganizationTenant
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: overlay__tenant
+        order_weight: 910
+      - name: vxlans
+        peer: NvcmVxlan
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: overlay__vxlan
+        order_weight: 2000
+      - name: pkeys
+        peer: NvcmInfinibandPkey
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: overlay__pkey
+        order_weight: 2100
+      - name: assignments
+        peer: NvcmOverlayAssignment
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: overlay__assignment
+        order_weight: 2200
+
+  - name: Vxlan
+    namespace: Nvcm
+    description: L2 or L3 VNI within an overlay
+    label: VXLAN
+    icon: mdi:transit-connection-variant
+    include_in_menu: false
+    human_friendly_id:
+      - overlay__name__value
+      - vni__value
+    display_label: "{{ overlay__name__value }} VNI {{ vni__value }}"
+    uniqueness_constraints:
+      - [overlay, vni__value]
+    attributes:
+      - name: vni
+        kind: Number
+        order_weight: 1000
+      - name: vni_type
+        kind: Dropdown
+        order_weight: 1100
+        choices:
+          - name: l2
+          - name: l3
+      - name: l3_vlan_id
+        description: SVI VLAN for an L3 VNI
+        kind: Number
+        optional: true
+        order_weight: 1200
+    relationships:
+      - name: overlay
+        peer: NvcmOverlay
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: overlay__vxlan
+        order_weight: 900
+      - name: vlan
+        description: Set for L2 VNIs
+        peer: IpamVLAN
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: vxlan__vlan
+        order_weight: 1300
+      - name: vrf
+        description: Set for L3 VNIs
+        peer: IpamVRF
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: vxlan__vrf
+        order_weight: 1400
+      - name: import_targets
+        peer: IpamRouteTarget
+        kind: Attribute
+        cardinality: many
+        identifier: vxlan__import_rt
+        order_weight: 1500
+      - name: export_targets
+        peer: IpamRouteTarget
+        kind: Attribute
+        cardinality: many
+        identifier: vxlan__export_rt
+        order_weight: 1600
+
+  - name: InfinibandPkey
+    namespace: Nvcm
+    description: InfiniBand partition key managed through UFM
+    label: InfiniBand PKey
+    icon: mdi:key-chain
+    include_in_menu: false
+    human_friendly_id:
+      - pkey__value
+    display_label: pkey__value
+    uniqueness_constraints:
+      - [pkey__value]
+    attributes:
+      - name: pkey
+        description: Canonical 0x%04x form
+        kind: Text
+        order_weight: 1000
+        parameters:
+          regex: "^0x[0-9a-f]{4}$"
+      - name: partition_name
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: default_membership
+        kind: Dropdown
+        default_value: full
+        order_weight: 1200
+        choices:
+          - name: full
+          - name: limited
+    relationships:
+      - name: overlay
+        peer: NvcmOverlay
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: overlay__pkey
+        order_weight: 900
+
+  - name: OverlayAssignment
+    namespace: Nvcm
+    description: Binds an overlay to a device or an interface
+    label: Overlay Assignment
+    icon: mdi:link-variant
+    include_in_menu: false
+    human_friendly_id:
+      - overlay__name__value
+      - name__value
+    display_label: "{{ overlay__name__value }} {{ name__value }}"
+    uniqueness_constraints:
+      - [overlay, name__value]
+    attributes:
+      - name: name
+        description: Stable key, normally the device or interface path
+        kind: Text
+        order_weight: 1000
+      - name: guid
+        label: InfiniBand GUID
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: membership_type
+        kind: Dropdown
+        default_value: full
+        order_weight: 1200
+        choices:
+          - name: full
+          - name: limited
+    relationships:
+      - name: overlay
+        peer: NvcmOverlay
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: overlay__assignment
+        order_weight: 900
+      - name: device
+        peer: DcimGenericDevice
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: overlay_assignment__device
+        order_weight: 1300
+      - name: interface
+        peer: DcimInterface
+        kind: Attribute
+        cardinality: one
+        optional: true
+        identifier: overlay_assignment__interface
+        order_weight: 1400
+
+extensions:
+  nodes:
+    - kind: DcimGenericDevice
+      relationships:
+        - name: overlay_assignments
+          peer: NvcmOverlayAssignment
+          kind: Attribute
+          cardinality: many
+          identifier: overlay_assignment__device
+          order_weight: 3600
+        - name: vrfs
+          description: VRFs configured on the device, drives L3 VNI scoping
+          peer: IpamVRF
+          kind: Attribute
+          cardinality: many
+          identifier: device__vrf
+          order_weight: 3700
+    - kind: DcimInterface
+      relationships:
+        - name: overlay_assignments
+          peer: NvcmOverlayAssignment
+          kind: Attribute
+          cardinality: many
+          identifier: overlay_assignment__interface
+          order_weight: 3000
+    - kind: IpamVRF
+      relationships:
+        - name: devices
+          peer: DcimGenericDevice
+          kind: Attribute
+          cardinality: many
+          identifier: device__vrf
+          order_weight: 3000

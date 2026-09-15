@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/python-sdk/repository-config/latest.json
+#
+# Infrahub repository for NVIDIA Config Manager (NVCM).
+#
+# Load order matters for the schema: base, then schema-library extensions,
+# then the Nvcm namespace that extends them.
+
+schemas:
+  - schemas/base/organization.yml
+  - schemas/base/location.yml
+  - schemas/base/dcim.yml
+  - schemas/base/ipam.yml
+  - schemas/extensions/tenancy.yml
+  - schemas/extensions/vlan.yml
+  - schemas/extensions/vrf.yml
+  - schemas/extensions/cable.yml
+  - schemas/extensions/lag.yml
+  - schemas/extensions/routing.yml
+  - schemas/extensions/bgp.yml
+  - schemas/nvcm/nvcm_locations.yml
+  - schemas/nvcm/nvcm_roles.yml
+  - schemas/nvcm/nvcm_device_state.yml
+  - schemas/nvcm/nvcm_services.yml
+  - schemas/nvcm/nvcm_firmware.yml
+  - schemas/nvcm/nvcm_routing_intent.yml
+  - schemas/nvcm/nvcm_dhcp.yml
+  - schemas/nvcm/nvcm_location_intent.yml
+  - schemas/nvcm/nvcm_overlays.yml
+
+# The RenderData transform, its GraphQL query and the artifact definition are
+# added in the next step:
+#
+# queries:
+#   - name: nvcm_render_data
+#     file_path: queries/render_data.gql
+# python_transforms:
+#   - name: nvcm_render_data
+#     class_name: RenderDataTransform
+#     file_path: transforms/render_data.py
+# artifact_definitions:
+#   - name: nvcm-render-data
+#     artifact_name: nvcm-render-data
+#     parameters:
+#       device: name__value
+#     content_type: application/json
+#     targets: nvcm_managed_devices
+#     transformation: nvcm_render_data

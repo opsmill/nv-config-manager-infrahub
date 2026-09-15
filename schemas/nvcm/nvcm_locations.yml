@@ -1,0 +1,118 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
+version: "1.0"
+
+# Location hierarchy matching the Nautobot bootstrap location types
+# Provider -> Region -> Site -> Module. Region nesting (Region under Region)
+# is not carried over; a single Region level is enough for the site lookup
+# that every NVCM service performs.
+#
+# LocationGeneric (hierarchical) and LocationHosting come from the
+# schema-library base. LocationSite here supersedes the location_site
+# extension copy so the parent and children kinds are explicit.
+
+nodes:
+  - name: Provider
+    namespace: Location
+    description: Service provider or organisation that owns regions
+    label: Provider
+    icon: mdi:domain
+    include_in_menu: true
+    menu_placement: LocationGeneric
+    inherit_from:
+      - LocationGeneric
+    parent: null
+    children: LocationRegion
+    human_friendly_id:
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [name__value]
+
+  - name: Region
+    namespace: Location
+    description: Geographic region within a provider
+    label: Region
+    icon: mdi:earth
+    include_in_menu: true
+    menu_placement: LocationGeneric
+    inherit_from:
+      - LocationGeneric
+    parent: LocationProvider
+    children: LocationSite
+    human_friendly_id:
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [name__value]
+
+  - name: Site
+    namespace: Location
+    description: Physical data centre site, the scope for rendering and DHCP
+    label: Site
+    icon: mdi:office-building
+    include_in_menu: true
+    menu_placement: LocationGeneric
+    inherit_from:
+      - LocationGeneric
+      - LocationHosting
+      - IpamPrefixScope
+      - IpamVLANGroupScope
+    parent: LocationRegion
+    children: LocationModule
+    human_friendly_id:
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [name__value]
+    attributes:
+      - name: status
+        kind: Dropdown
+        default_value: active
+        order_weight: 1100
+        choices:
+          - name: active
+            color: "#7fbf7f"
+          - name: planned
+            color: "#ffff7f"
+          - name: staging
+            color: "#ffd27f"
+          - name: decommissioning
+            color: "#bfbfbf"
+      - name: facility
+        kind: Text
+        optional: true
+        order_weight: 1200
+      - name: physical_address
+        kind: TextArea
+        optional: true
+        order_weight: 1300
+      - name: timezone
+        kind: Text
+        optional: true
+        order_weight: 1400
+      - name: site_asn
+        label: Site ASN
+        description: BGP autonomous system number shared by the site fabric
+        kind: Number
+        optional: true
+        order_weight: 1500
+
+  - name: Module
+    namespace: Location
+    description: Pod or scalable unit inside a site, hosts devices and racks
+    label: Module
+    icon: mdi:server
+    include_in_menu: true
+    menu_placement: LocationGeneric
+    inherit_from:
+      - LocationGeneric
+      - LocationHosting
+    parent: LocationSite
+    children: null
+    human_friendly_id:
+      - parent__name__value
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [parent, name__value]

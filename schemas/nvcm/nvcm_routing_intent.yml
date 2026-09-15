@@ -1,0 +1,53 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
+version: "1.0"
+
+# Routing intent that Nautobot kept in config contexts: bgp.asn,
+# bgp.local-asn, isis.interfaces, evpn_esi_base_mac, fabric-mac and
+# evpn.df-preference. Native BGP instances and peers come from the
+# schema-library routing_bgp extension and are not redefined here.
+#
+# site_asn lives on LocationSite in nvcm_locations.yml.
+
+extensions:
+  nodes:
+    - kind: DcimGenericDevice
+      attributes:
+        - name: bgp_default_asn
+          label: BGP default ASN
+          description: ASN used when no native BGP instance is modelled
+          kind: Number
+          optional: true
+          order_weight: 2100
+        - name: bgp_local_asn
+          label: BGP local ASN
+          kind: Number
+          optional: true
+          order_weight: 2200
+        - name: evpn_esi_base_mac
+          label: EVPN ESI base MAC
+          kind: MacAddress
+          optional: true
+          order_weight: 2300
+        - name: evpn_fabric_mac
+          label: EVPN fabric MAC
+          kind: MacAddress
+          optional: true
+          order_weight: 2400
+        - name: evpn_df_preference
+          label: EVPN DF preference
+          kind: Number
+          optional: true
+          order_weight: 2500
+        - name: route_server
+          description: Device acts as a BGP route server for its site
+          kind: Boolean
+          default_value: false
+          order_weight: 2600
+    - kind: DcimInterface
+      attributes:
+        - name: isis_metric
+          label: IS-IS metric
+          kind: Number
+          optional: true
+          order_weight: 1900

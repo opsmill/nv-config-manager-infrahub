@@ -1,0 +1,245 @@
+---
+# yaml-language-server: $schema=https://schema.infrahub.app/infrahub/schema/latest.json
+version: "1.0"
+
+# Network service intent that Nautobot kept in config contexts under the keys
+# dns, ntp, syslog, tacacs, ztp, firmware_cache, provisioning_servers, dhcp
+# and management_prefixes, plus password_mappings and secrets_versions.
+#
+# An NvcmServiceProfile is scoped like a Nautobot config context: to
+# locations, device roles, platforms or individual devices, with a weight.
+# The RenderData transform resolves the effective profile for a device by
+# collecting every profile whose scope matches and merging by weight, the
+# highest weight winning per service. Unscoped profiles apply everywhere.
+
+nodes:
+  - name: ServiceProfile
+    namespace: Nvcm
+    description: Scoped set of network service endpoints for rendering
+    label: Service Profile
+    icon: mdi:dns-outline
+    include_in_menu: true
+    human_friendly_id:
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [name__value]
+    order_by:
+      - weight__value
+      - name__value
+    attributes:
+      - name: name
+        kind: Text
+        order_weight: 1000
+      - name: description
+        kind: Text
+        optional: true
+        order_weight: 1100
+      - name: weight
+        description: Higher weight wins when several profiles match a device
+        kind: Number
+        default_value: 1000
+        order_weight: 1200
+      - name: is_active
+        kind: Boolean
+        default_value: true
+        order_weight: 1300
+      - name: management_prefixes_ipv4
+        label: Management prefixes (IPv4)
+        description: Prefixes allowed to reach device management planes
+        kind: List
+        optional: true
+        order_weight: 1400
+      - name: management_prefixes_ipv6
+        label: Management prefixes (IPv6)
+        kind: List
+        optional: true
+        order_weight: 1500
+    relationships:
+      - name: endpoint_sets
+        peer: NvcmServiceEndpointSet
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: service_profile__endpoint_set
+        order_weight: 2000
+      - name: dhcp_servers
+        peer: NvcmDhcpServerSet
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: service_profile__dhcp_server_set
+        order_weight: 2100
+      - name: dhcp_option_sets
+        peer: NvcmDhcpOptionSet
+        kind: Component
+        cardinality: many
+        on_delete: cascade
+        identifier: service_profile__dhcp_option_set
+        order_weight: 2200
+      - name: locations
+        description: Applies to every device under these locations
+        peer: LocationGeneric
+        kind: Attribute
+        cardinality: many
+        identifier: service_profile__location
+        order_weight: 3000
+      - name: device_roles
+        peer: NvcmDeviceRole
+        kind: Attribute
+        cardinality: many
+        identifier: service_profile__device_role
+        order_weight: 3100
+      - name: platforms
+        peer: DcimPlatform
+        kind: Attribute
+        cardinality: many
+        identifier: service_profile__platform
+        order_weight: 3200
+      - name: devices
+        peer: DcimGenericDevice
+        kind: Attribute
+        cardinality: many
+        identifier: service_profile__device
+        order_weight: 3300
+
+  - name: ServiceEndpointSet
+    namespace: Nvcm
+    description: IPv4 and IPv6 endpoints for one service
+    label: Service Endpoints
+    icon: mdi:ip-network-outline
+    include_in_menu: false
+    human_friendly_id:
+      - profile__name__value
+      - service__value
+    display_label: "{{ profile__name__value }} {{ service__value }}"
+    uniqueness_constraints:
+      - [profile, service__value]
+    attributes:
+      - name: service
+        kind: Dropdown
+        order_weight: 1000
+        choices:
+          - name: dns
+          - name: ntp
+          - name: syslog
+          - name: tacacs
+          - name: ztp
+            description: ZTP servers, also used for DHCP option templates
+          - name: firmware_cache
+            description: Firmware image cache, falls back to ztp when unset
+          - name: provisioning
+            description: Provisioning servers
+      - name: ipv4
+        description: IPv4 addresses or host names
+        kind: List
+        optional: true
+        order_weight: 1100
+      - name: ipv6
+        kind: List
+        optional: true
+        order_weight: 1200
+    relationships:
+      - name: profile
+        peer: NvcmServiceProfile
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: service_profile__endpoint_set
+        order_weight: 900
+
+  - name: DhcpServerSet
+    namespace: Nvcm
+    description: Named DHCP server group, rendered as a DHCP relay target
+    label: DHCP Servers
+    icon: mdi:server-network-outline
+    include_in_menu: false
+    human_friendly_id:
+      - profile__name__value
+      - name__value
+    display_label: "{{ profile__name__value }} {{ name__value }}"
+    uniqueness_constraints:
+      - [profile, name__value]
+    attributes:
+      - name: name
+        description: Relay group name, for example nvConfigManager or superpod
+        kind: Text
+        order_weight: 1000
+      - name: ipv4
+        kind: List
+        optional: true
+        order_weight: 1100
+      - name: ipv6
+        kind: List
+        optional: true
+        order_weight: 1200
+    relationships:
+      - name: profile
+        peer: NvcmServiceProfile
+        kind: Parent
+        cardinality: one
+        optional: false
+        identifier: service_profile__dhcp_server_set
+        order_weight: 900
+
+  - name: CredentialMapping
+    namespace: Nvcm
+    description: Local account to secret reference, scoped by platform
+    label: Credential Mapping
+    icon: mdi:key-variant
+    include_in_menu: true
+    human_friendly_id:
+      - name__value
+    display_label: name__value
+    uniqueness_constraints:
+      - [name__value]
+    attributes:
+      - name: name
+        kind: Text
+        order_weight: 1000
+      - name: username
+        description: Local account on the device
+        kind: Text
+        order_weight: 1100
+      - name: secret_name
+        description: Secret key in the deployment secret store, never the value
+        kind: Text
+        order_weight: 1200
+      - name: rotation
+        description: Rotation generation appended to the secret name
+        kind: Text
+        default_value: r1
+        order_weight: 1300
+      - name: secret_version
+        description: Last rotated version recorded by the password rotation workflow
+        kind: Text
+        optional: true
+        order_weight: 1400
+      - name: role
+        description: Device-side privilege role, for example system-admin
+        kind: Text
+        optional: true
+        order_weight: 1500
+      - name: weight
+        kind: Number
+        default_value: 1000
+        order_weight: 1600
+    relationships:
+      - name: platforms
+        peer: DcimPlatform
+        kind: Attribute
+        cardinality: many
+        identifier: credential_mapping__platform
+        order_weight: 2000
+      - name: locations
+        peer: LocationGeneric
+        kind: Attribute
+        cardinality: many
+        identifier: credential_mapping__location
+        order_weight: 2100
+      - name: devices
+        peer: DcimGenericDevice
+        kind: Attribute
+        cardinality: many
+        identifier: credential_mapping__device
+        order_weight: 2200
