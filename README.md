@@ -47,6 +47,27 @@ re-run it when refreshing from upstream.
 The `location_site` extension is not loaded; `nvcm_locations.yml` defines
 `LocationSite` inside the Provider, Region, Site, Module hierarchy.
 
+## Identity attributes
+
+`infrahubctl object load` upserts by human-friendly ID, and an HFID path may
+only traverse one relationship hop. Where the natural identity sits further
+away than that, the node carries a unique `name` (or `component_key`) Text
+attribute that spells the identity out, the pattern `NvcmFirmwareBundle`
+already used. Without one the loader cannot match the existing node, the upsert
+behaves as a create and the second load trips the uniqueness constraint. The
+installer runs the bootstrap on every deploy, so that would break a redeploy.
+
+| Node | Identity attribute | Value | Why the relationship will not do |
+| :--- | :--- | :--- | :--- |
+| `NvcmDhcpScope` | `name` | the prefix string, `192.0.2.0/23` | The identity is the related `IpamPrefix`, whose own HFID is `ip_namespace__name__value` plus `prefix__value`, two hops away |
+| `NvcmDhcpPool` | `name` | `<prefix> <start>-<end>` | A pool is unique within its scope, and the scope's prefix is two hops away. `start__value` alone was wrong twice over: Infrahub promotes an HFID to a uniqueness constraint, so it also banned the same start address in two scopes |
+| `NvcmFirmwareCustomComponent` | `component_key` | `<device> <component>` | Identity is override, device, name, two hops. `name` stays the component name the render contract publishes, which repeats across devices |
+
+The existing `uniqueness_constraints` stay as the real integrity rule; the
+identity attribute only gives the loader something to match on. Adding one to a
+node that already holds data needs those rows removed first, because the
+attribute is mandatory: Infrahub refuses the migration otherwise.
+
 ## Validate and load
 
 ```bash

@@ -145,12 +145,22 @@ nodes:
     label: Custom Firmware Component
     icon: mdi:chip
     include_in_menu: false
-    # No human_friendly_id: identity needs two relationship hops
-    # (override -> device -> name) and paths allow one. Reference by id.
+    # Identity needs two relationship hops (override -> device -> name) and an
+    # HFID path allows one, so `component_key` carries both parts. `name` stays
+    # the component name the render contract publishes, which repeats across
+    # devices and so cannot be the identity on its own.
+    human_friendly_id:
+      - component_key__value
     display_label: "{{ name__value }}"
     uniqueness_constraints:
       - [override, name__value]
     attributes:
+      - name: component_key
+        label: Component key
+        description: Stable identity, "<device> <component>"
+        kind: Text
+        unique: true
+        order_weight: 900
       - name: name
         kind: Text
         order_weight: 1000

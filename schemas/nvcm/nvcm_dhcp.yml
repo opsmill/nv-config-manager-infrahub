@@ -22,12 +22,21 @@ nodes:
     icon: mdi:lan
     include_in_menu: true
     menu_placement: IpamPrefix
-    # No human_friendly_id: IpamPrefix is unique on (namespace, prefix), which
-    # needs two relationship hops. Reference scopes by id or through the prefix.
+    # The natural identity is the related IpamPrefix, but its own HFID is
+    # ip_namespace__name__value plus prefix__value and an HFID path may only
+    # traverse one relationship hop. `name` carries the prefix string instead so
+    # the object loader can match an existing scope and upsert it.
+    human_friendly_id:
+      - name__value
     display_label: "{{ prefix__prefix__value }}"
     uniqueness_constraints:
       - [prefix]
     attributes:
+      - name: name
+        description: Stable identity, the prefix string, for example 192.0.2.0/23
+        kind: Text
+        unique: true
+        order_weight: 900
       - name: enabled
         kind: Boolean
         default_value: true
@@ -66,12 +75,21 @@ nodes:
     label: DHCP Pool
     icon: mdi:arrow-expand-horizontal
     include_in_menu: false
+    # `start__value` alone is not the identity: a pool is unique within its
+    # scope, and Infrahub promotes an HFID to a uniqueness constraint, so that
+    # HFID would have banned the same start address in two scopes. The parent
+    # scope's prefix is two hops away, so `name` carries it.
     human_friendly_id:
-      - start__value
+      - name__value
     display_label: "{{ start__value }} - {{ end__value }}"
     uniqueness_constraints:
       - [scope, start__value]
     attributes:
+      - name: name
+        description: Stable identity, "<prefix> <start>-<end>"
+        kind: Text
+        unique: true
+        order_weight: 900
       - name: start
         kind: IPHost
         order_weight: 1000

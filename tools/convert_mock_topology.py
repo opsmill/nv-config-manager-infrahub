@@ -1542,12 +1542,13 @@ def build_dhcp(
     scopes = []
     for record in dhcp_records:
         pools = [
-            {"start": start, "end": end}
+            {"name": f"{record.prefix} {start}-{end}", "start": start, "end": end}
             for start, end in pool_ranges(pools_by_prefix.get(record.prefix, []))
         ]
         scopes.append(
             clean(
                 {
+                    "name": record.prefix,
                     "prefix": [IP_NAMESPACE, record.prefix],
                     "enabled": True,
                     "gateway": ip_ref(gateways[record.prefix])
