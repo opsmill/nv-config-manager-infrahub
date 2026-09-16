@@ -91,6 +91,15 @@ def _text(value: Any) -> str | None:
     return str(value)
 
 
+def _mac(value: Any) -> str | None:
+    """Render a MAC address in lower case, the Cumulus and Nautobot convention.
+
+    Infrahub's MacAddress kind stores the address in upper case.
+    """
+    text = _text(value)
+    return text.lower() if text else None
+
+
 def _natural_key(name: str) -> list[object]:
     """Sort key that orders swp2 before swp10."""
     return [int(part) if part.isdigit() else part for part in NATURAL_SORT.split(name)]
@@ -387,7 +396,9 @@ def build_bgp_instances(
     for session in sessions:
         asn = _text(_value(_rel(session, "local_as"), "asn")) or fallback_asn
         if asn is None:
-            raise RenderDataError(name, f"BGP session '{_value(session, 'description')}'", "local_as")
+            raise RenderDataError(
+                name, f"BGP session '{_value(session, 'description')}'", "local_as"
+            )
         peer = build_bgp_peer(session, name)
         peers_by_asn.setdefault(asn, [])
         if peer is not None:
@@ -426,8 +437,8 @@ def build_routing(
         "site_asn": site_asn,
         "isis_interfaces": isis_interfaces,
         "evpn": {
-            "esi_base_mac": _text(_value(device, "evpn_esi_base_mac")),
-            "fabric_mac": _text(_value(device, "evpn_fabric_mac")),
+            "esi_base_mac": _mac(_value(device, "evpn_esi_base_mac")),
+            "fabric_mac": _mac(_value(device, "evpn_fabric_mac")),
             "df_preference": int(df_preference) if df_preference is not None else None,
         },
     }
@@ -686,7 +697,11 @@ def build_topology_device(node: Node, asns: Mapping[str, str]) -> dict[str, Any]
         if is_loopback(interface)
         for address in _edges(interface, "ip_addresses")
     ]
-    return {"name": _name(node), "routing_asn": device_asn(node, asns), "loopback_addresses": loopbacks}
+    return {
+        "name": _name(node),
+        "routing_asn": device_asn(node, asns),
+        "loopback_addresses": loopbacks,
+    }
 
 
 def at_site(node: Node, site_name: str) -> bool:
@@ -697,7 +712,10 @@ def at_site(node: Node, site_name: str) -> bool:
 
 
 def build_topology(
-    site_name: str, route_servers: Iterable[Node], wan_routers: Iterable[Node], asns: Mapping[str, str]
+    site_name: str,
+    route_servers: Iterable[Node],
+    wan_routers: Iterable[Node],
+    asns: Mapping[str, str],
 ) -> dict[str, Any]:
     """Build RenderLocationTopology for the devices hosted under the site."""
 
@@ -725,11 +743,37 @@ def select_site(data: Mapping[str, Any], device: str) -> Node:
 # --------------------------------------------------------------------------
 
 
+def location_names(location: Mapping[str, Any] | None) -> set[str]:
+    """Return the names of every element of a RenderLocation chain."""
+    names: set[str] = set()
+    while location:
+        names.add(str(location["name"]))
+        location = location.get("parent")
+    return names
+
+
+def scoped_nodes(
+    data: Mapping[str, Any], relationship: str, device: Node, location: Mapping[str, Any]
+) -> list[Node]:
+    """Return the profiles or mappings of a top-level result that apply to the device."""
+    name = _name(device) or "<unnamed>"
+    role = _name(_rel(device, "device_role"))
+    platform = _name(_rel(device, "platform"))
+    ancestors = location_names(location)
+    return [
+        node
+        for node in _edges(data, relationship)
+        if scope_matches(node, name, role, platform, ancestors)
+    ]
+
+
 def build_render_data(data: Mapping[str, Any]) -> dict[str, Any]:
     """Assemble the RenderData cache envelope from the query response."""
     devices = _edges(data, "DcimDevice")
     if len(devices) != 1:
-        raise ValueError(f"expected exactly one DcimDevice in the query response, got {len(devices)}")
+        raise ValueError(
+            f"expected exactly one DcimDevice in the query response, got {len(devices)}"
+        )
     device = devices[0]
     name = _name(device) or "<unnamed>"
     location = build_location(_rel(device, "location"))
@@ -739,20 +783,9 @@ def build_render_data(data: Mapping[str, Any]) -> dict[str, Any]:
     site = select_site(data, name)
     site_asn = _text(_value(site, "site_asn"))
     asns = asn_map(_edges(data, "autonomous_systems"))
-    role = _name(_rel(device, "device_role"))
-    platform = _name(_rel(device, "platform"))
-    ancestors: set[str] = set()
-    current: Mapping[str, Any] | None = location
-    while current:
-        ancestors.add(str(current["name"]))
-        current = current.get("parent")
 
     def matched(relationship: str) -> list[Node]:
-        return [
-            node
-            for node in _edges(data, relationship)
-            if scope_matches(node, name, role, platform, ancestors)
-        ]
+        return scoped_nodes(data, relationship, device, location)
 
     return {
         "schema_version": SCHEMA_VERSION,

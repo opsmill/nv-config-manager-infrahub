@@ -1,0 +1,36 @@
+---
+# Resources Testing Framework definitions for the nvcm_render_data transform.
+#
+# Run without a server (smoke and unit):
+#   uv run --with 'infrahub-sdk[ctl]' --with pytest pytest tests/test_transforms.yml -k "smoke or unit"
+# Run everything, including the integration test against a live Infrahub:
+#   INFRAHUB_ADDRESS=http://localhost:8000 INFRAHUB_API_TOKEN=... \
+#     uv run --with 'infrahub-sdk[ctl]' --with pytest pytest tests/test_transforms.yml
+#
+# fixtures/render_data/a04-u44-p01-tor-01/input.json is the response of
+# queries/render_data.gql captured from the superpod mock topology;
+# output.json is the transform output for it. Regenerate both when the query
+# or the loaded data changes (see transforms/README.md).
+version: "1.0"
+infrahub_tests:
+  - resource: PythonTransform
+    resource_name: nvcm_render_data
+    tests:
+      - name: smoke_render_data
+        spec:
+          kind: python-transform-smoke
+
+      - name: unit_render_data_tor_01
+        spec:
+          kind: python-transform-unit-process
+          directory: fixtures/render_data/a04-u44-p01-tor-01
+          input: input.json
+          output: output.json
+        expect: PASS
+
+      - name: integration_render_data_tor_01
+        spec:
+          kind: python-transform-integration
+          variables:
+            device: a04-u44-p01-tor-01
+        expect: PASS

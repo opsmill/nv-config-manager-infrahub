@@ -1,0 +1,1689 @@
+{
+  "schema_version": 1,
+  "device": {
+    "identity": {
+      "id": "18d58cf8-d727-5c7e-2fd3-c5172d490e7f",
+      "name": "a04-u44-p01-tor-01",
+      "platform": "Cumulus Linux",
+      "role": "OOB-Leaf",
+      "model": "MSN2201",
+      "location": {
+        "name": "TEST-SITE SUPERPOD 1 - test",
+        "id": "18d58ceb-e1c3-bf7e-2fdf-c51e3e2cd04b",
+        "kind": "Module",
+        "tags": [],
+        "parent": {
+          "name": "TEST-SITE",
+          "id": "18d58ceb-d1e8-5f44-2fd0-c51a0a5bd792",
+          "kind": "Site",
+          "tags": [],
+          "parent": {
+            "name": "Country-A",
+            "id": "18d58ceb-ad29-4069-2fd8-c51b97b2495e",
+            "kind": "Region",
+            "tags": [],
+            "parent": {
+              "name": "Example Corp",
+              "id": "18d58ceb-a003-db76-2fd3-c5134db4b6f7",
+              "kind": "Provider",
+              "tags": [],
+              "parent": null
+            }
+          }
+        }
+      },
+      "tags": []
+    },
+    "interfaces": [
+      {
+        "name": "eth0",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Uplink",
+        "mac_address": "44:38:39:20:00:01",
+        "vrf": {
+          "name": "OOB",
+          "route_distinguisher": "*:2000",
+          "import_targets": [],
+          "export_targets": []
+        },
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": null,
+        "tagged_vlans": [],
+        "addresses": [
+          {
+            "address": "192.0.2.20/23",
+            "host": "192.0.2.20",
+            "version": 4,
+            "role": "management",
+            "parent_prefixes": [
+              "192.0.2.0/23"
+            ]
+          }
+        ],
+        "connected_interface": {
+          "name": "swp9",
+          "vrf": null,
+          "addresses": [],
+          "device": {
+            "id": "18d58cfa-c61b-3384-2fd1-c51f5adef005",
+            "name": "a08-u44-p01-mleaf-01",
+            "role": "Mgmt-Leaf",
+            "tenant": "SuperPod",
+            "tags": [],
+            "routing_asn": "4230000014"
+          }
+        }
+      },
+      {
+        "name": "lo",
+        "type": "VIRTUAL",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Switch-Loopback",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": null,
+        "tagged_vlans": [],
+        "addresses": [
+          {
+            "address": "10.254.254.2/32",
+            "host": "10.254.254.2",
+            "version": 4,
+            "role": null,
+            "parent_prefixes": [
+              "10.254.254.0/23"
+            ]
+          }
+        ],
+        "connected_interface": null
+      },
+      {
+        "name": "lo-oob",
+        "type": "VIRTUAL",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": null,
+        "mac_address": null,
+        "vrf": {
+          "name": "OOB",
+          "route_distinguisher": "*:2000",
+          "import_targets": [],
+          "export_targets": []
+        },
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": null,
+        "tagged_vlans": [],
+        "addresses": [
+          {
+            "address": "10.78.154.0/32",
+            "host": "10.78.154.0",
+            "version": 4,
+            "role": null,
+            "parent_prefixes": [
+              "10.78.144.0/20"
+            ]
+          }
+        ],
+        "connected_interface": null
+      },
+      {
+        "name": "swp1",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp2",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp3",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp4",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp5",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp6",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp7",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp8",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp9",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp10",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp11",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp12",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp13",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp14",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp15",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp16",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp17",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp18",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp19",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp20",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp21",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp22",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp23",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp24",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp25",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp26",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp27",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp28",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp29",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp30",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp31",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp32",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp33",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp34",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp35",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp36",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp37",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp38",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp39",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp40",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp41",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp42",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp43",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp44",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp45",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp46",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp47",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp48",
+        "type": "A_1000BASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Downlink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [],
+        "connected_interface": null
+      },
+      {
+        "name": "swp49",
+        "type": "A_10GBASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Uplink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": null,
+        "tagged_vlans": [],
+        "addresses": [
+          {
+            "address": "10.254.32.1/31",
+            "host": "10.254.32.1",
+            "version": 4,
+            "role": null,
+            "parent_prefixes": [
+              "10.254.32.0/31",
+              "10.254.32.0/23"
+            ]
+          }
+        ],
+        "connected_interface": {
+          "name": "swp9s0",
+          "vrf": null,
+          "addresses": [
+            {
+              "address": "10.254.32.0/31",
+              "host": "10.254.32.0",
+              "version": 4,
+              "role": null,
+              "parent_prefixes": [
+                "10.254.32.0/31",
+                "10.254.32.0/23"
+              ]
+            }
+          ],
+          "device": {
+            "id": "18d58cf9-473a-f738-2fd1-c51a03dd4002",
+            "name": "a08-u28-p01-oobspine-01",
+            "role": "OOB-Spine",
+            "tenant": "SuperPod",
+            "tags": [],
+            "routing_asn": "4265355097"
+          }
+        }
+      },
+      {
+        "name": "swp51",
+        "type": "A_10GBASE_T",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "Uplink",
+        "mac_address": null,
+        "vrf": null,
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": null,
+        "tagged_vlans": [],
+        "addresses": [
+          {
+            "address": "10.254.34.1/31",
+            "host": "10.254.34.1",
+            "version": 4,
+            "role": null,
+            "parent_prefixes": [
+              "10.254.34.0/31",
+              "10.254.34.0/23"
+            ]
+          }
+        ],
+        "connected_interface": null
+      },
+      {
+        "name": "vlan202",
+        "type": "VIRTUAL",
+        "mtu": null,
+        "enabled": true,
+        "tags": [],
+        "description": "",
+        "role": "VLAN-202",
+        "mac_address": null,
+        "vrf": {
+          "name": "OOB",
+          "route_distinguisher": "*:2000",
+          "import_targets": [],
+          "export_targets": []
+        },
+        "management_only": false,
+        "member_interfaces": [],
+        "parent_interface": null,
+        "untagged_vlan": {
+          "vid": 202,
+          "name": "Vlan202"
+        },
+        "tagged_vlans": [],
+        "addresses": [
+          {
+            "address": "10.78.156.2/22",
+            "host": "10.78.156.2",
+            "version": 4,
+            "role": null,
+            "parent_prefixes": [
+              "10.78.156.0/22",
+              "10.78.144.0/20"
+            ]
+          }
+        ],
+        "connected_interface": null
+      }
+    ],
+    "network": {
+      "vrfs": [
+        {
+          "name": "OOB",
+          "route_distinguisher": "*:2000",
+          "import_targets": [],
+          "export_targets": []
+        }
+      ],
+      "console_server_ports": [],
+      "nvlink_topology": null
+    },
+    "routing": {
+      "bgp_instances": [
+        {
+          "status": "Active",
+          "asn": "4230000004",
+          "router_id_interface": "lo",
+          "vrfs": [
+            "default"
+          ],
+          "peers": [
+            {
+              "name": "a08-u28-p01-oobspine-01",
+              "status": "Active",
+              "description": "a08-u28-p01-oobspine-01",
+              "peer_group": "UNDERLAY",
+              "peer_role": "OOB-Spine",
+              "asn": "4265355097",
+              "peer_ipv4": "10.254.32.0",
+              "peer_ipv6": null,
+              "source_interface": "swp9s0",
+              "source_vrf": "default",
+              "ttl": null
+            },
+            {
+              "name": "a08-u28-p01-oobspine-01",
+              "status": "Active",
+              "description": "a08-u28-p01-oobspine-01",
+              "peer_group": "EVPN",
+              "peer_role": "OOB-Spine",
+              "asn": "4265355097",
+              "peer_ipv4": "10.254.254.10",
+              "peer_ipv6": null,
+              "source_interface": "lo",
+              "source_vrf": "default",
+              "ttl": null
+            }
+          ]
+        }
+      ],
+      "default_asn": "4230000004",
+      "local_asn": null,
+      "site_asn": "4230000001",
+      "isis_interfaces": [],
+      "evpn": {
+        "esi_base_mac": "44:38:39:ff:69:00",
+        "fabric_mac": "00:00:5e:00:01:69",
+        "df_preference": null
+      }
+    },
+    "overlays": {
+      "l2_vnis": [
+        {
+          "vlan": {
+            "vid": 101,
+            "name": "Vlan101"
+          },
+          "vni": 1001,
+          "overlay_name": "Vlan101",
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "vlan": {
+            "vid": 150,
+            "name": "Vlan150"
+          },
+          "vni": 1050,
+          "overlay_name": "Vlan150",
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "vlan": {
+            "vid": 201,
+            "name": "Vlan201"
+          },
+          "vni": 2001,
+          "overlay_name": "Vlan201",
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "vlan": {
+            "vid": 202,
+            "name": "Vlan202"
+          },
+          "vni": 2002,
+          "overlay_name": "Vlan202",
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "vlan": {
+            "vid": 203,
+            "name": "Vlan203"
+          },
+          "vni": 2003,
+          "overlay_name": "Vlan203",
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "vlan": {
+            "vid": 301,
+            "name": "Vlan301"
+          },
+          "vni": 3001,
+          "overlay_name": "Vlan301",
+          "import_targets": [],
+          "export_targets": []
+        }
+      ],
+      "l3_vnis": [
+        {
+          "vrf": {
+            "name": "OOB",
+            "route_distinguisher": "*:2000",
+            "import_targets": [],
+            "export_targets": []
+          },
+          "l3_vlan_id": 4002,
+          "vni": 2000,
+          "overlay_name": "OOB-L3"
+        }
+      ],
+      "l2_vni_vrfs": [
+        {
+          "name": "Vlan101",
+          "vni": 1001,
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "name": "Vlan150",
+          "vni": 1050,
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "name": "Vlan201",
+          "vni": 2001,
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "name": "Vlan202",
+          "vni": 2002,
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "name": "Vlan203",
+          "vni": 2003,
+          "import_targets": [],
+          "export_targets": []
+        },
+        {
+          "name": "Vlan301",
+          "vni": 3001,
+          "import_targets": [],
+          "export_targets": []
+        }
+      ]
+    },
+    "firmware": {
+      "desired_version": "5.13.1",
+      "selected_bundle_version": null,
+      "bundles": [],
+      "overrides": {
+        "skip_components": [],
+        "custom_components": []
+      }
+    },
+    "services": {
+      "dns": {
+        "ipv4": [
+          "192.0.2.8",
+          "192.0.2.9"
+        ],
+        "ipv6": []
+      },
+      "ntp": {
+        "ipv4": [
+          "192.0.2.8",
+          "192.0.2.9"
+        ],
+        "ipv6": []
+      },
+      "syslog": null,
+      "tacacs": null,
+      "ztp": {
+        "ipv4": [
+          "192.0.2.10"
+        ],
+        "ipv6": []
+      },
+      "firmware_cache": null,
+      "provisioning": {
+        "ipv4": [
+          "192.0.2.10"
+        ],
+        "ipv6": []
+      },
+      "dhcp": [
+        {
+          "name": "nvConfigManager",
+          "endpoints": {
+            "ipv4": [
+              "192.0.2.8",
+              "192.0.2.9"
+            ],
+            "ipv6": []
+          }
+        },
+        {
+          "name": "superpod",
+          "endpoints": {
+            "ipv4": [
+              "192.0.2.8",
+              "192.0.2.9"
+            ],
+            "ipv6": []
+          }
+        }
+      ],
+      "management_prefixes": {
+        "ipv4": [
+          "192.0.2.0/23",
+          "10.78.144.0/20"
+        ],
+        "ipv6": []
+      }
+    },
+    "access": {
+      "credentials": [
+        {
+          "username": "cumulus",
+          "secret_name": "root_password",
+          "rotation": "r1",
+          "role": "system-admin"
+        },
+        {
+          "username": "nv-config-manager",
+          "secret_name": "api_user_key",
+          "rotation": "r1",
+          "role": "system-admin"
+        }
+      ]
+    }
+  },
+  "location": {
+    "location": {
+      "name": "TEST-SITE",
+      "id": "18d58ceb-d1e8-5f44-2fd0-c51a0a5bd792",
+      "kind": "Site",
+      "tags": [],
+      "parent": {
+        "name": "Country-A",
+        "id": "18d58ceb-ad29-4069-2fd8-c51b97b2495e",
+        "kind": "Region",
+        "tags": [],
+        "parent": {
+          "name": "Example Corp",
+          "id": "18d58ceb-a003-db76-2fd3-c5134db4b6f7",
+          "kind": "Provider",
+          "tags": [],
+          "parent": null
+        }
+      }
+    },
+    "routing": {
+      "site_asn": "4230000001"
+    },
+    "address_space": {
+      "prefixes": [
+        {
+          "prefix": "10.78.144.0/20",
+          "role": "Site-Aggregate",
+          "tags": []
+        },
+        {
+          "prefix": "10.78.154.128/25",
+          "role": "ipminet2",
+          "tags": []
+        },
+        {
+          "prefix": "10.78.156.0/22",
+          "role": "ipminet1",
+          "tags": []
+        },
+        {
+          "prefix": "10.254.1.0/24",
+          "role": "superpod-spine-p2p",
+          "tags": []
+        },
+        {
+          "prefix": "10.254.2.0/24",
+          "role": "superpod-spine-p2p",
+          "tags": []
+        },
+        {
+          "prefix": "10.254.32.0/23",
+          "role": "OOB-Fabric-P2P",
+          "tags": []
+        },
+        {
+          "prefix": "10.254.34.0/23",
+          "role": "OOB-Fabric-P2P",
+          "tags": []
+        },
+        {
+          "prefix": "10.254.254.0/23",
+          "role": "superpod-loopback",
+          "tags": []
+        },
+        {
+          "prefix": "100.127.1.0/24",
+          "role": "superpod-storage-p2p",
+          "tags": []
+        },
+        {
+          "prefix": "100.127.128.0/24",
+          "role": "superpod-storage-vlan",
+          "tags": []
+        },
+        {
+          "prefix": "100.127.255.0/24",
+          "role": "superpod-storage-loopback",
+          "tags": []
+        },
+        {
+          "prefix": "192.0.2.0/23",
+          "role": "ipminet0",
+          "tags": []
+        }
+      ],
+      "uc_jumphost_prefixes": [],
+      "vlans": [
+        {
+          "vlan": {
+            "vid": 101,
+            "name": "Vlan101"
+          },
+          "helper_addresses": []
+        },
+        {
+          "vlan": {
+            "vid": 102,
+            "name": "Vlan102"
+          },
+          "helper_addresses": []
+        },
+        {
+          "vlan": {
+            "vid": 150,
+            "name": "Vlan150"
+          },
+          "helper_addresses": []
+        },
+        {
+          "vlan": {
+            "vid": 201,
+            "name": "Vlan201"
+          },
+          "helper_addresses": []
+        },
+        {
+          "vlan": {
+            "vid": 202,
+            "name": "Vlan202"
+          },
+          "helper_addresses": []
+        },
+        {
+          "vlan": {
+            "vid": 203,
+            "name": "Vlan203"
+          },
+          "helper_addresses": []
+        },
+        {
+          "vlan": {
+            "vid": 301,
+            "name": "Vlan301"
+          },
+          "helper_addresses": []
+        }
+      ]
+    },
+    "topology": {
+      "route_servers": [],
+      "wan_routers": [
+        {
+          "name": "example-wan-1",
+          "routing_asn": "4265355123",
+          "loopback_addresses": []
+        },
+        {
+          "name": "example-wan-2",
+          "routing_asn": "4265355123",
+          "loopback_addresses": []
+        }
+      ]
+    }
+  },
+  "plugin_data": {}
+}

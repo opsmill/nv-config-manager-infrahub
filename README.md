@@ -8,7 +8,12 @@ Infrahub repository for [NVIDIA Config Manager](https://github.com/dsx-ai-factor
   `nvcm/` is the `Nvcm` namespace that replaces Nautobot config contexts, tags,
   custom fields and the Nautobot apps NVCM depended on.
 - `queries/` and `transforms/` the GraphQL query and Python transform that
-  build NVCM's provider-neutral `RenderData` for one device (next step).
+  build NVCM's provider-neutral `RenderData` for one device. Mapping rules and
+  the remaining differences from the Nautobot provider are in
+  `transforms/README.md`.
+- `groups/` the `nvcm_managed_devices` group the artifact definition targets.
+- `tests/` Resources Testing Framework definitions, the captured unit fixture
+  and the pytest contract test against the NVCM SDK.
 - `.infrahub.yml` registers all of it, including the artifact definition that
   generates one `RenderData` artifact per managed device.
 
@@ -52,3 +57,40 @@ uvx --from 'infrahub-sdk[ctl]' infrahubctl schema load  schemas/base schemas/ext
 ```
 
 Validated against Infrahub 1.11.2 on 2026-09-15.
+
+## Managed device group
+
+`groups/nvcm_managed_devices.yml` defines the `CoreStandardGroup` that the
+`nvcm-render-data` artifact definition targets. Its members are the devices with
+an `NvcmDeviceStatus`, NVCM's definition of a managed device. Infrahub does not
+derive the membership; load the group and add the members:
+
+```bash
+uvx --from 'infrahub-sdk[ctl]' infrahubctl object load groups/nvcm_managed_devices.yml
+```
+
+```graphql
+# ids from: { DcimDevice(nvcm_status__isnull: false) { edges { node { id } } } }
+# group id from: { CoreStandardGroup(name__value: "nvcm_managed_devices") { edges { node { id } } } }
+mutation {
+  RelationshipAdd(data: { id: "<group id>", name: "members", nodes: [{ id: "<device id>" }] }) {
+    ok
+  }
+}
+```
+
+A generator keyed on `NvcmDeviceStatus`, or the NVCM bootstrap that creates the
+status objects, should keep the membership in sync; until then re-run the
+mutation after adding devices.
+
+Running the integration test in `tests/test_transforms.yml` without a
+registered repository needs the query stored server-side, which a repository
+sync normally does:
+
+```graphql
+mutation($q: String!) {
+  CoreGraphQLQueryCreate(data: { name: { value: "nvcm_render_data" }, query: { value: $q } }) {
+    ok
+  }
+}
+```
