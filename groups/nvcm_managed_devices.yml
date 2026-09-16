@@ -1,0 +1,12 @@
+---
+# Target group of the nvcm-render-data artifact definition. Members are the
+# devices that carry an NvcmDeviceStatus (NVCM's definition of "managed").
+# Membership is not derived automatically: add members with a RelationshipAdd
+# mutation on the group (see README) or have the NVCM bootstrap keep it in sync.
+apiVersion: infrahub.app/v1
+kind: Object
+spec:
+  kind: CoreStandardGroup
+  data:
+    - name: nvcm_managed_devices
+      description: Devices managed by NVIDIA Config Manager, targets of nvcm-render-data

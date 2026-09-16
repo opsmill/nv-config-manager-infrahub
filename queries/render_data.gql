@@ -364,10 +364,49 @@ query nvcm_render_data($device: String!) {
     edges { node { ...SiteFields } }
   }
 
+  # The site fields are spelled out here instead of spreading SiteFields:
+  # Infrahub 1.11 returns null attributes when a named fragment is spread
+  # inside an inline fragment on a hierarchical parent relationship.
   site_via_module: LocationModule(devices__name__value: $device) {
     edges {
       node {
-        parent { node { ... on LocationSite { ...SiteFields } } }
+        parent {
+          node {
+            ... on LocationSite {
+              id
+              name { value }
+              site_asn { value }
+              prefixes {
+                edges {
+                  node {
+                    prefix { value }
+                    role { value }
+                    site_aggregate { value }
+                    uc_jumphost { value }
+                  }
+                }
+              }
+              vlan_groups {
+                edges {
+                  node {
+                    name { value }
+                    vlans {
+                      edges {
+                        node {
+                          name { value }
+                          vlan_id { value }
+                          ... on IpamVLAN {
+                            dhcp_helper_addresses { edges { node { address { value } } } }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

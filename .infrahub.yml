@@ -28,21 +28,23 @@ schemas:
   - schemas/nvcm/nvcm_location_intent.yml
   - schemas/nvcm/nvcm_overlays.yml
 
-# The RenderData transform, its GraphQL query and the artifact definition are
-# added in the next step:
-#
-# queries:
-#   - name: nvcm_render_data
-#     file_path: queries/render_data.gql
-# python_transforms:
-#   - name: nvcm_render_data
-#     class_name: RenderDataTransform
-#     file_path: transforms/render_data.py
-# artifact_definitions:
-#   - name: nvcm-render-data
-#     artifact_name: nvcm-render-data
-#     parameters:
-#       device: name__value
-#     content_type: application/json
-#     targets: nvcm_managed_devices
-#     transformation: nvcm_render_data
+objects:
+  - groups/nvcm_managed_devices.yml
+
+queries:
+  - name: nvcm_render_data
+    file_path: queries/render_data.gql
+
+python_transforms:
+  - name: nvcm_render_data
+    class_name: RenderDataTransform
+    file_path: transforms/render_data.py
+
+artifact_definitions:
+  - name: nvcm-render-data
+    artifact_name: nvcm-render-data
+    parameters:
+      device: name__value
+    content_type: application/json
+    targets: nvcm_managed_devices
+    transformation: nvcm_render_data
