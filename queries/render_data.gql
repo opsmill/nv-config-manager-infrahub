@@ -1,0 +1,382 @@
+# Everything the nvcm_render_data transform needs for one device, in one round
+# trip. Site-scoped data (prefixes, VLANs) is reached through the device's
+# location: LocationSite when the device sits on the site directly, or the
+# LocationModule parent otherwise, so only one of site_direct and
+# site_via_module returns an edge. Route servers, WAN routers, service
+# profiles, credential mappings, VXLANs and autonomous systems are fetched
+# unfiltered and narrowed to the device in the transform, because their scope
+# depends on the device's location and GraphQL cannot join on it.
+
+fragment LocationChain on LocationHosting {
+  __typename
+  id
+  name { value }
+  ... on LocationGeneric {
+    tags { edges { node { name { value } } } }
+    parent {
+      node {
+        __typename
+        id
+        name { value }
+        tags { edges { node { name { value } } } }
+        parent {
+          node {
+            __typename
+            id
+            name { value }
+            tags { edges { node { name { value } } } }
+            parent {
+              node {
+                __typename
+                id
+                name { value }
+                tags { edges { node { name { value } } } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment VrfFields on IpamVRF {
+  name { value }
+  vrf_rd { value }
+  import_rt { edges { node { name { value } } } }
+  export_rt { edges { node { name { value } } } }
+}
+
+fragment VlanFields on IpamGenericVLAN {
+  name { value }
+  vlan_id { value }
+}
+
+fragment AddressFields on IpamIPAddress {
+  address { value }
+  role { value }
+  ip_prefix {
+    node {
+      prefix { value }
+      parent {
+        node {
+          prefix { value }
+          parent {
+            node {
+              prefix { value }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment PeerDeviceFields on DcimGenericDevice {
+  id
+  name { value }
+  device_role { node { name { value } } }
+  tenant { node { name { value } } }
+  tags { edges { node { name { value } } } }
+  asn { node { asn { value } } }
+  bgp_default_asn { value }
+}
+
+fragment InterfaceFields on DcimInterface {
+  __typename
+  id
+  name { value }
+  description { value }
+  status { value }
+  role { value }
+  mtu { value }
+  interface_type { value }
+  isis_metric { value }
+  tags { edges { node { name { value } } } }
+  ... on InterfaceLayer2 {
+    mac_address { value }
+    untagged_vlan { node { ...VlanFields } }
+    tagged_vlan { edges { node { ...VlanFields } } }
+  }
+  ... on InterfaceLayer3 {
+    vrf { node { ...VrfFields } }
+    ip_addresses { edges { node { ...AddressFields } } }
+  }
+  ... on InterfaceVirtual {
+    parent_interface { node { ... on DcimInterface { name { value } } } }
+  }
+  ... on GenericInterfaceBundle {
+    bundle_members { edges { node { name { value } } } }
+  }
+  ... on DcimEndpoint {
+    connector {
+      node {
+        connected_endpoints {
+          edges {
+            node {
+              __typename
+              id
+              ... on DcimInterface {
+                name { value }
+                device { node { ...PeerDeviceFields } }
+              }
+              ... on InterfaceLayer3 {
+                vrf { node { name { value } } }
+                ip_addresses { edges { node { ...AddressFields } } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment FirmwareComponentFields on NvcmFirmwareComponent {
+  name { value }
+  reported_version { value }
+  image_file { value }
+  source_path { value }
+}
+
+fragment SiteFields on LocationSite {
+  id
+  name { value }
+  site_asn { value }
+  prefixes {
+    edges {
+      node {
+        prefix { value }
+        role { value }
+        site_aggregate { value }
+        uc_jumphost { value }
+      }
+    }
+  }
+  vlan_groups {
+    edges {
+      node {
+        name { value }
+        vlans {
+          edges {
+            node {
+              ...VlanFields
+              ... on IpamVLAN {
+                dhcp_helper_addresses { edges { node { address { value } } } }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment TopologyDeviceFields on DcimDevice {
+  name { value }
+  route_server { value }
+  bgp_default_asn { value }
+  asn { node { asn { value } } }
+  device_role { node { name { value } category { value } } }
+  location {
+    node {
+      name { value }
+      ... on LocationGeneric {
+        ancestors { edges { node { name { value } } } }
+      }
+    }
+  }
+  interfaces {
+    edges {
+      node {
+        name { value }
+        role { value }
+        ... on InterfaceLayer3 {
+          ip_addresses { edges { node { address { value } } } }
+        }
+      }
+    }
+  }
+}
+
+query nvcm_render_data($device: String!) {
+  DcimDevice(name__value: $device) {
+    edges {
+      node {
+        id
+        name { value }
+        status { value }
+        intended_firmware_version { value }
+        bgp_default_asn { value }
+        bgp_local_asn { value }
+        bgp_router_id_interface { value }
+        evpn_esi_base_mac { value }
+        evpn_fabric_mac { value }
+        evpn_df_preference { value }
+        platform { node { name { value } } }
+        device_role { node { name { value } category { value } } }
+        device_type { node { name { value } } }
+        tenant { node { name { value } } }
+        tags { edges { node { name { value } } } }
+        asn { node { asn { value } } }
+        location { node { ...LocationChain } }
+        vrfs { edges { node { ...VrfFields } } }
+        nvlink_domains { edges { node { topology { value } } } }
+        firmware_bundle {
+          node {
+            version { value }
+            os_version { value }
+            os_image_file { value }
+            os_source_path { value }
+            components { edges { node { ...FirmwareComponentFields } } }
+          }
+        }
+        firmware_override {
+          node {
+            skip_components { value }
+            custom_components {
+              edges {
+                node {
+                  name { value }
+                  reported_version { value }
+                  image_file { value }
+                  source_path { value }
+                }
+              }
+            }
+          }
+        }
+        interfaces { edges { node { ...InterfaceFields } } }
+      }
+    }
+  }
+
+  bgp_sessions: RoutingBGPSession(device__name__value: $device) {
+    edges {
+      node {
+        id
+        description { value }
+        status { value }
+        vrf { node { name { value } } }
+        local_as { node { asn { value } } }
+        remote_as { node { asn { value } } }
+        peer_group { node { name { value } } }
+        local_ip {
+          node {
+            address { value }
+            interface {
+              node {
+                ... on DcimInterface { name { value } }
+                vrf { node { name { value } } }
+              }
+            }
+          }
+        }
+        remote_ip {
+          node {
+            address { value }
+            interface {
+              node {
+                ... on DcimInterface {
+                  name { value }
+                  device {
+                    node {
+                      name { value }
+                      device_role { node { name { value } } }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  overlay_assignments: NvcmOverlayAssignment(device__name__value: $device) {
+    edges { node { overlay { node { name { value } } } } }
+  }
+
+  vxlans: NvcmVxlan {
+    edges {
+      node {
+        id
+        vni { value }
+        vni_type { value }
+        l3_vlan_id { value }
+        overlay { node { name { value } } }
+        vlan { node { ...VlanFields } }
+        vrf { node { ...VrfFields } }
+        import_targets { edges { node { name { value } } } }
+        export_targets { edges { node { name { value } } } }
+      }
+    }
+  }
+
+  autonomous_systems: RoutingAutonomousSystem {
+    edges {
+      node {
+        asn { value }
+        devices { edges { node { name { value } } } }
+      }
+    }
+  }
+
+  service_profiles: NvcmServiceProfile(is_active__value: true) {
+    edges {
+      node {
+        name { value }
+        weight { value }
+        management_prefixes_ipv4 { value }
+        management_prefixes_ipv6 { value }
+        locations { edges { node { name { value } } } }
+        device_roles { edges { node { name { value } } } }
+        platforms { edges { node { name { value } } } }
+        devices { edges { node { name { value } } } }
+        endpoint_sets {
+          edges { node { service { value } ipv4 { value } ipv6 { value } } }
+        }
+        dhcp_servers {
+          edges { node { name { value } ipv4 { value } ipv6 { value } } }
+        }
+      }
+    }
+  }
+
+  credential_mappings: NvcmCredentialMapping {
+    edges {
+      node {
+        name { value }
+        username { value }
+        secret_name { value }
+        rotation { value }
+        role { value }
+        weight { value }
+        platforms { edges { node { name { value } } } }
+        locations { edges { node { name { value } } } }
+        devices { edges { node { name { value } } } }
+      }
+    }
+  }
+
+  site_direct: LocationSite(devices__name__value: $device) {
+    edges { node { ...SiteFields } }
+  }
+
+  site_via_module: LocationModule(devices__name__value: $device) {
+    edges {
+      node {
+        parent { node { ... on LocationSite { ...SiteFields } } }
+      }
+    }
+  }
+
+  route_servers: DcimDevice(route_server__value: true) {
+    edges { node { ...TopologyDeviceFields } }
+  }
+
+  wan_routers: DcimDevice(device_role__category__value: "wan_router") {
+    edges { node { ...TopologyDeviceFields } }
+  }
+}
